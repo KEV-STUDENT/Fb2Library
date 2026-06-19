@@ -1,0 +1,28 @@
+erDiagram
+    Book ||--o| File : "хранится как"
+    Book ||--o| ArchiveEntry : "хранится как"
+    
+    Book {
+        int Id PK
+        string Title
+        string Author
+    }
+    
+    File {
+        int Id PK
+        int BookId FK "UNIQUE"
+        string FileName
+        string StoragePath
+        long FileSize
+        string ContentType
+    }
+    
+    ArchiveEntry {
+        int Id PK
+        int BookId FK "UNIQUE"
+        string ArchivePath
+        string EntryName
+        long FileSize
+        long CompressedSize
+        string ContentType
+    }

@@ -8,7 +8,40 @@
 - **Framework Independence** (независимость от внешних фреймворков)
 - **Database Independence** (возможность смены БД)
 
+## 💡 Общая структура чистой архитектуры
 ---
+```mermaid
+graph TD
+    subgraph "Presentation Layer"
+        Blazor[Blazor UI]
+        WPF[WPF UI]
+    end
+    
+    subgraph "Application Layer"
+        UseCases[Use Cases / Handlers]
+        DTOs[DTOs]
+        Ports[Ports / Interfaces]
+    end
+    
+    subgraph "Domain Layer"
+        Entities[Entities]
+        ValueObjects[Value Objects]
+        RepoInterfaces[Repository Interfaces]
+    end
+    
+    subgraph "Infrastructure Layer"
+        Persistence[Persistence / EF Core]
+        FileStorage[File Storage]
+        Fb2Parser[FB2 Parser]
+    end
+    
+    Blazor --> UseCases
+    WPF --> UseCases
+    UseCases --> Entities
+    UseCases --> RepoInterfaces
+    Persistence --> RepoInterfaces
+    Persistence --> Entities
+```
 
 ## 🧱 Структура слоев
 
