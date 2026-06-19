@@ -190,6 +190,6 @@
 
 ## 🔗 Связанные документы
 
-- [Архитектура](./architecture.md)
+- [Архитектура](./ARCHITECTURE.md)
 - [Схема базы данных](./database-schema.md)
 - [UI макеты](./ui-mockups.md)
