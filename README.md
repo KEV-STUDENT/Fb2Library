@@ -35,10 +35,19 @@
 ## 📂 Структура проекта
 
 ```text
-Fb2Library.sln
-├── Fb2Library.Domain/          # Ядро: сущности, интерфейсы
-├── Fb2Library.Application/     # Бизнес-логика: Use Cases, DTO
-├── Fb2Library.Infrastructure/  # Реализации: БД, файлы, парсер
-├── Fb2Library.Blazor/          # Веб-интерфейс (Blazor Server)
-├── Fb2Library.Wpf/             # Десктоп-интерфейс (WPF) — позже
-└── docs/                       # Детальная документация
+Fb2Library/
+├── Fb2Library.sln
+├── src/
+│   ├── Fb2Library.Domain/              # Ядро: сущности, интерфейсы
+│   ├── Fb2Library.Application/         # Бизнес-логика: Use Cases, DTO
+│   ├── Fb2Library.Infrastructure/      # Реализации: БД, файлы, парсер
+│   ├── Fb2Library.Persistence/
+│   └── Presentation/
+│       ├── Fb2Library.Blazor/          # Веб-интерфейс (Blazor)
+│       └── Fb2Library.Wpf/             # Десктоп-интерфейс (WPF) — позже
+|
+├── tests/                              # Тесты
+│   ├── Fb2Library.Domain.Tests/
+│   ├── Fb2Library.Application.Tests/
+│   └── Fb2Library.Integration.Tests/
+└── docs/                               # Детальная документация   
