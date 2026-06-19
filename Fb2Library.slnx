@@ -1,11 +1,13 @@
 <Solution>
   <Folder Name="/src/">
     <Project Path="src/Fb2Library.Application/Fb2Library.Application.csproj" />
-    <Project Path="src/Fb2Library.Blazor/Fb2Library.Blazor.csproj" />
     <Project Path="src/Fb2Library.Domain/Fb2Library.Domain.csproj" />
     <Project Path="src/Fb2Library.Infrastructure/Fb2Library.Infrastructure.csproj" />
     <Project Path="src/Fb2Library.Persistence/Fb2Library.Persistence.csproj" />
-    <Project Path="src/Fb2Library.Wpf/Fb2Library.Wpf.csproj" />
+  </Folder>
+  <Folder Name="/src/Presentation/">
+    <Project Path="src/Presentation/Fb2Library.Blazor/Fb2Library.Blazor.csproj" />
+    <Project Path="src/Presentation/Fb2Library.Wpf/Fb2Library.Wpf.csproj" />
   </Folder>
   <Folder Name="/tests/">
     <Project Path="tests/Fb2Library.Application.Tests/Fb2Library.Application.Tests.csproj" />

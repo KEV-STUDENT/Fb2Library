@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
-    <ProjectReference Include="..\Fb2Library.Application\Fb2Library.Application.csproj" />
-    <ProjectReference Include="..\Fb2Library.Persistence\Fb2Library.Persistence.csproj" />
+    <ProjectReference Include="..\..\Fb2Library.Application\Fb2Library.Application.csproj" />
+    <ProjectReference Include="..\..\Fb2Library.Persistence\Fb2Library.Persistence.csproj" />
   </ItemGroup>
 
   <PropertyGroup>
