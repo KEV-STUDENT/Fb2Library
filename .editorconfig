@@ -1,0 +1,104 @@
+# Top-most EditorConfig file
+root = true
+
+# ============================================
+# Базовые настройки для всех файлов
+# ============================================
+[*]
+# Кодировка
+charset = utf-8
+
+# Окончания строк
+end_of_line = crlf
+
+# Вставлять пустую строку в конце файла
+insert_final_newline = true
+
+# Удалять пробелы в конце строк
+trim_trailing_whitespace = true
+
+# Отступы: пробелы вместо табов
+indent_style = space
+indent_size = 4
+
+# ============================================
+# C# файлы
+# ============================================
+[*.cs]
+# Использовать var когда тип очевиден
+csharp_style_var_when_type_is_apparent = true:warning
+csharp_style_var_elsewhere = false:warning
+
+# Всегда использовать явные модификаторы доступа (private, public)
+dotnet_style_require_accessibility_modifiers = always:warning
+
+# Предпочитать свойства вместо методов для простых геттеров
+dotnet_style_prefer_auto_properties = true:suggestion
+
+# Использовать expression body для методов
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+
+# Использовать expression body для свойств
+csharp_style_expression_bodied_properties = when_on_single_line:suggestion
+
+# Не использовать this.
+dotnet_style_qualification_for_field = false:warning
+dotnet_style_qualification_for_property = false:warning
+dotnet_style_qualification_for_method = false:warning
+dotnet_style_qualification_for_event = false:warning
+
+# Использовать современные конструкции
+csharp_style_pattern_matching_over_is_with_cast_check = true:suggestion
+csharp_style_pattern_matching_over_as_with_null_check = true:suggestion
+csharp_style_prefer_switch_expression = true:suggestion
+csharp_style_prefer_range_operator = true:suggestion
+csharp_style_prefer_null_check_over_type_check = true:suggestion
+
+# Настройки для using
+csharp_using_directive_placement = outside_namespace:warning
+dotnet_sort_system_directives_first = true
+dotnet_separate_import_directive_groups = false
+
+# Правила именования
+dotnet_naming_rule.private_fields_underscore.severity = warning
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = underscore_style
+
+dotnet_naming_symbols.private_fields.applicable_kinds = field
+dotnet_naming_symbols.private_fields.applicable_accessibilities = private
+
+dotnet_naming_style.underscore_style.capitalization = camel_case
+dotnet_naming_style.underscore_style.required_prefix = _
+
+# Предупреждения как ошибки для определенных правил
+dotnet_diagnostic.CS4014.severity = error  # async без await
+dotnet_diagnostic.CA2007.severity = warning  # ConfigureAwait
+dotnet_diagnostic.IDE0005.severity = warning  # Неиспользуемые using
+
+# ============================================
+# XML и конфигурационные файлы
+# ============================================
+[*.{xml,config,csproj,props,resx}]
+indent_style = space
+indent_size = 2
+
+# ============================================
+# JSON файлы
+# ============================================
+[*.json]
+indent_style = space
+indent_size = 2
+
+# ============================================
+# Markdown файлы
+# ============================================
+[*.md]
+trim_trailing_whitespace = false
+max_line_length = off
+
+# ============================================
+# YAML файлы (для CI/CD)
+# ============================================
+[*.{yml,yaml}]
+indent_style = space
+indent_size = 2

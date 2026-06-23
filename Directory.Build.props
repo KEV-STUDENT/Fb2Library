@@ -1,0 +1,36 @@
+<Project>
+  <PropertyGroup>
+    <!-- Общая версия .NET для всех проектов -->
+    <TargetFramework>net10.0</TargetFramework>
+    
+    <!-- Включаем неявное использование using (не нужно писать using System; и т.д.) -->
+    <ImplicitUsings>enable</ImplicitUsings>
+    
+    <!-- Включаем nullable reference types -->
+    <Nullable>enable</Nullable>
+    
+    <!-- Предупреждения как ошибки (строгий режим) -->
+    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    
+    <!-- Версия языка C# -->
+    <LangVersion>latest</LangVersion>
+    
+    <!-- Настройка для NuGet пакетов -->
+    <ManagePackageVersionsCentrally>true</ManagePackageVersionsCentrally>
+  </PropertyGroup>
+
+  <!-- Общие NuGet пакеты для ВСЕХ проектов -->
+  <ItemGroup>
+     <!-- Тестовые пакеты -->
+    <PackageVersion Include="coverlet.collector" Version="6.0.4" />
+    <PackageVersion Include="Microsoft.NET.Test.Sdk" Version="17.14.1" />
+    <PackageVersion Include="xunit" Version="2.9.3" />
+    <PackageVersion Include="xunit.runner.visualstudio" Version="3.1.4" />
+  </ItemGroup>
+
+    <!-- Дополнительные настройки для тестовых проектов -->
+  <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+</Project>
