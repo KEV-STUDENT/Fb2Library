@@ -1,28 +1,41 @@
 erDiagram
-    Book ||--o| File : "хранится как"
-    Book ||--o| ArchiveEntry : "хранится как"
-    
+    Book ||--|| Storage : "хранится как"
+    Storage ||--o| FileBook : "хранится как"
+    Storage ||--o| ArchiveEntry : "хранится как"
+    File || --o{ ArchiveEntry : содержит
+    File || --|| FileBook : содержит
+
     Book {
         int Id PK
         string Title
-        string Author
+        text Anotation
     }
     
-    File {
+    Storage{
         int Id PK
         int BookId FK "UNIQUE"
-        string FileName
-        string StoragePath
-        long FileSize
+        byte Type
         string ContentType
+    }
+
+    FileBook {
+        int Id PK
+        int StorageId FK "UNIQUE"
+        int FileId FK "UNIQUE"
     }
     
     ArchiveEntry {
         int Id PK
-        int BookId FK "UNIQUE"
-        string ArchivePath
+        int StorageId FK "UNIQUE"
+        int FileId FK "UNIQUE"
         string EntryName
         long FileSize
         long CompressedSize
-        string ContentType
+    }
+
+    File{
+        int Id PK
+        string FileName
+        string FilePath
+        long FileSize
     }
