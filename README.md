@@ -11,7 +11,7 @@
 ## 🎯 Цели проекта
 
 - Изучить и применить на практике **Clean Architecture**.
-- Освоить подход TDD (Test-Driven Development)
+- Освоить подход **TDD** (Test-Driven Development)
 - Разработать два варианта пользовательского интерфейса: **Blazor Server** (веб) и **WPF** (десктоп).
 - Научиться работать с **Entity Framework Core** (SQLite / MS SQL Server).
 - Реализовать полноценный парсинг, поиск и чтение FB2-файлов.
