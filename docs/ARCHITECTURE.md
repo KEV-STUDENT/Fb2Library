@@ -187,7 +187,7 @@ graph TD
 ## 🔗 Связанные документы
 
 - [План разработки](./DEV_PLAN.md)
-- [Схема базы данных](./SDB_ER_SCHEMA.md)
+- [Схема базы данных](./SDB_ER_SCHEMA.mermaid)
 - [Конфигурация](./CONFIGURATIONS.md)
 - [UI макеты](./ui-mockups.md)
 - [Правила кодирования](./guidelines.md)
