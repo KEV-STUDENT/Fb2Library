@@ -6,4 +6,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Folder Include="Entities\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation">
+      <VersionOverride>12.1.1</VersionOverride>
+    </PackageReference>
+  </ItemGroup>
+
 </Project>

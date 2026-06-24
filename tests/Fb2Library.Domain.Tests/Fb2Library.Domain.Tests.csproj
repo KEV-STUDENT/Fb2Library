@@ -9,6 +9,12 @@
 
   <ItemGroup>
     <PackageReference Include="coverlet.collector" />
+    <PackageReference Include="FluentAssertions">
+      <VersionOverride>8.10.0</VersionOverride>
+    </PackageReference>
+    <PackageReference Include="FluentValidation">
+      <VersionOverride>12.1.1</VersionOverride>
+    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" />
     <PackageReference Include="xunit" />
     <PackageReference Include="xunit.runner.visualstudio" />
@@ -20,6 +26,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\src\Fb2Library.Domain\Fb2Library.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Entities\" />
   </ItemGroup>
 
 </Project>

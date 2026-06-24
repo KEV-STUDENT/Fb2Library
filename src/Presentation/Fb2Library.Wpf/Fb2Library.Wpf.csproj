@@ -1,6 +1,12 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation">
+      <VersionOverride>12.1.1</VersionOverride>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\Fb2Library.Application\Fb2Library.Application.csproj" />
     <ProjectReference Include="..\..\Fb2Library.Persistence\Fb2Library.Persistence.csproj" />
   </ItemGroup>

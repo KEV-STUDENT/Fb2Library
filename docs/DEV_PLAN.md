@@ -32,6 +32,19 @@
 **Статус:** ⏳ В процессе
 
 **Задачи:**
+
+В Domain :
+- [ ] Создать сущность  `Person` (базовая)
+- [ ] Создать сущность  `Keyword`, `Genre`, `Publisher` (справочники)
+- [ ] Создать сущность  `Book` (центральная)
+- [ ] Создать сущность  `BookAuthor`, `BooksKeyword`, `BooksGenre`, `BooksPublisher` (связи)
+- [ ] Создать сущность  `Translator` (связь с Persons и Books)
+- [ ] Создать сущность  `Document` (зависит от Books)
+- [ ] Создать сущность  `Anotation`, `Cover`, `BooksFile` (one-to-one с Books/Documents)
+- [ ] Создать сущность  `ArchiveFile` (независимая)
+- [ ] Создать сущность  `ArchiveEntrie` (связь Documents и ArchiveFiles)
+- [ ] Создать сущность  `DocAuthor` (связь Persons и Documents)
+
 - [ ] Создать сущность `Book` в Domain
 - [ ] Создать сущность `User` в Domain (опционально)
 - [ ] Создать сущность `Bookmark` в Domain
@@ -44,6 +57,7 @@
 - [ ] Реализовать `BookRepository`
 - [ ] Реализовать `BookmarkRepository`
 - [ ] Реализовать `CommentRepository`
+
 - [ ] Создать миграцию и базу данных (SQLite)
 - [ ] Добавить seed-данные
 
