@@ -1,41 +1,120 @@
 erDiagram
-    Book ||--|| Storage : "хранится как"
-    Storage ||--o| FileBook : "хранится как"
-    Storage ||--o| ArchiveEntry : "хранится как"
-    File || --o{ ArchiveEntry : содержит
-    File || --|| FileBook : содержит
+    Books ||--|{ Documents : "представлена"   
+    Books ||--o{ BooksKeywords: ""   
+    Keywords||--|{ BooksKeywords: ""
+    Books ||--o{ BooksGenres : ""
+    Genres ||--|{ BooksGenres : ""
+    Books ||--|{ BooksAuthors  : "написана"
+    Books ||--o{ Translators  : "переведена"
+    Books ||--o| Anotations : "описание"
+    Books ||--o| Covers : ""
+    Books ||--o| BooksPublishers : "издана"
+    Publishers ||--|{ BooksPublishers : "издал"
 
-    Book {
+    Documents ||--o| ArchiveEntries : "размещается"
+    ArchiveFiles ||--|{ ArchiveEntries : "содержит"
+    Documents ||--o| BooksFiles : "размещается"
+    Documents ||--o{ DocAuthors : "создан"
+    
+    DocAuthors ||--|| Persons : ""
+    BooksAuthors ||--|| Persons : ""
+    Translators ||--|| Persons : ""
+
+    Books {
         int Id PK
         string Title
-        text Anotation
-    }
-    
-    Storage{
-        int Id PK
-        int BookId FK "UNIQUE"
-        byte Type
-        string ContentType
+        string City
+        int Year
     }
 
-    FileBook {
+    BooksKeywords{
+        int BooksId     PK, FK
+        int KeywordId   PK, FK
+    }
+
+    Keywords{
+        int Id PK        
+        string Keyword        
+    }
+
+    Genres{
         int Id PK
-        int StorageId FK "UNIQUE"
-        int FileId FK "UNIQUE"
+        string Genre       "UK"
+    }
+
+    BooksGenres{
+        int BookId  PK, FK
+        int GenreId PK, FK
+    }
+
+    Documents{
+        int Id PK
+        int BooksId FK "UK"
+        byte StorageType "UK"
+        byte ContentType "UK"
+    }
+
+    Anotations{
+        int BookId PK, FK
+        text Anotation
+    }
+
+    BooksFiles {
+        int DocumentsId PK, FK
+        string FileName
+        string FilePath
+        long FileSize
     }
     
-    ArchiveEntry {
-        int Id PK
-        int StorageId FK "UNIQUE"
-        int FileId FK "UNIQUE"
+    ArchiveEntries {
+        int DocumentsId PK, FK
+        int FileId      PK, FK
         string EntryName
         long FileSize
         long CompressedSize
     }
 
-    File{
+    ArchiveFiles{
         int Id PK
         string FileName
         string FilePath
         long FileSize
     }
+
+    BooksAuthors{
+        int PersonsID PK, FK
+        int BooksID   PK, FK
+    }
+
+    Translators{
+        int PersonsID PK, FK
+        int BooksID   PK, FK
+    }
+
+    DocAuthors{
+        int PersonsID     PK, FK
+        int DocumentsID   PK, FK
+    }
+
+    Persons{
+        int Id PK
+        string LastName
+        string FirstName
+        string MiddleName
+        string NickName
+    }
+
+    Covers{
+        int BookId PK, FK
+        binary Cover
+    }
+
+     Publishers{
+        int Id PK
+        string Publisher "UK"
+     }
+     
+     BooksPublishers{
+        int BookId      PK, FK
+        int PublisherID PK, FK
+     }
