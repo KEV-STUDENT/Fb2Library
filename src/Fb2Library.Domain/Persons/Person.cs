@@ -1,6 +1,8 @@
+using Fb2Library.Domain.Shared;
+
 namespace Fb2Library.Domain.Persons
 {
-    public sealed class Person
+    public sealed class Person : AggregateRoot<PersonId>
     {
         public Person(PersonName name)
         {
@@ -9,6 +11,7 @@ namespace Fb2Library.Domain.Persons
         }
 
         public PersonName Name { get; }
-        public PersonId Id { get; set; }
+
+        protected override PersonId GetNewId() => PersonId.New();
     }
 }
