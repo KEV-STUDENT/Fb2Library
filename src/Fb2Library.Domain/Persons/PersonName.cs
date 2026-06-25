@@ -1,5 +1,3 @@
-using Fb2Library.Domain.Exceptions;
-
 namespace Fb2Library.Domain.Persons
 {
     public class PersonName : IEquatable<PersonName>
@@ -7,10 +5,10 @@ namespace Fb2Library.Domain.Persons
         public PersonName(string firstName, string lastName, string? middleName = null, string? nickName = null)
         {
             if (string.IsNullOrWhiteSpace(firstName))
-                throw new DomainException("First Name must be specified.");
+                throw new ArgumentException("Value cannot be empty", nameof(firstName));
 
             if (string.IsNullOrWhiteSpace(lastName))
-                throw new DomainException("Last Name must be specified.");
+                throw new ArgumentException("Value cannot be empty", nameof(lastName));
 
             FirstName = NormalizeName(firstName);
             LastName = NormalizeName(lastName);

@@ -25,28 +25,28 @@ namespace Fb2Library.Domain.Tests.Persons
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
-        public void Create_InvalidFirstName_ShouldThrowDomainException(string firstname)
+        public void Create_InvalidFirstName_ShouldThrowArgumentException(string firstname)
         {
             // Act
             Func<PersonName> act = () => new PersonName(firstname, "Толстой");
 
             // Assert
-            act.Should().Throw<DomainException>()
-                .WithMessage("*First Name*");
+            act.Should().Throw<ArgumentException>()
+                .WithMessage("*firstName*");
         }
 
 
         [Theory]
         [InlineData("")]
         [InlineData(" ")]
-        public void Create_InvalidLastName_ShouldThrowDomainException(string lastName)
+        public void Create_InvalidLastName_ShouldThrowArgumentException(string lastName)
         {
             // Act
             Func<PersonName> act = () => new PersonName("Лев", lastName);
 
             // Assert
-            act.Should().Throw<DomainException>()
-                .WithMessage("*Last Name*");
+            act.Should().Throw<ArgumentException>()
+                .WithMessage("*lastName*");
         }
 
         [Theory]
