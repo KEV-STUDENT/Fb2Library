@@ -4,11 +4,6 @@ namespace Fb2Library.Domain.ValueObjects
 {
     public class PersonName : IEquatable<PersonName>
     {
-        private readonly string _firstName;
-        private readonly string _lastName;
-        private readonly string? _middleName;
-        private readonly string? _nickName;
-
         public PersonName(string firstName, string lastName, string? middleName = null, string? nickName = null)
         {
             if (string.IsNullOrWhiteSpace(firstName))
@@ -17,21 +12,21 @@ namespace Fb2Library.Domain.ValueObjects
             if (string.IsNullOrWhiteSpace(lastName))
                 throw new DomainException("Last Name must be specified.");
 
-            _firstName = NormalizeName(firstName);
-            _lastName = NormalizeName(lastName);
+            FirstName = NormalizeName(firstName);
+            LastName = NormalizeName(lastName);
 
             if (string.IsNullOrWhiteSpace(middleName))
-                _middleName = middleName?.Trim();
+                MiddleName = middleName?.Trim();
             else
-                _middleName = NormalizeName(middleName);
+                MiddleName = NormalizeName(middleName);
 
-            _nickName = nickName?.Trim();
+            NickName = nickName?.Trim();
         }
 
-        public string FirstName => _firstName;
-        public string LastName => _lastName;
-        public string? MiddleName => _middleName;
-        public string? NickName => _nickName;
+        public string FirstName { get; }
+        public string LastName { get; }
+        public string? MiddleName { get; }
+        public string? NickName { get; }
         public string FullName => string.Join(" ", new[] {LastName,  FirstName, MiddleName}.Where(x => !string.IsNullOrWhiteSpace(x)));
         public string ShortName => string.Join(" ", new[] { FirstName, LastName }.Where(x => !string.IsNullOrWhiteSpace(x)));
         public string SortName => string.Join(" ", new[] { LastName, FirstName }.Where(x => !string.IsNullOrWhiteSpace(x)));
