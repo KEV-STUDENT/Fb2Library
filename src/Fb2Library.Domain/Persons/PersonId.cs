@@ -2,13 +2,13 @@ using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Persons
 {
-    public sealed record PersonId : IntIdentity
+    public sealed record PersonId : GuidIdentity
     {
-        public PersonId(int value) : base(value) { }
+        public PersonId(Guid value) : base(value) { }
 
-        public static PersonId From(int value) => new(value);
-        public static PersonId New() => new(0);
+        public static PersonId From(Guid value) => new(value);
+        public static PersonId New() => new(Guid.NewGuid());
 
-        public static implicit operator PersonId(int value) => From(value);
+        public static implicit operator PersonId(Guid value) => From(value);
     }
 }

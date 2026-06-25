@@ -13,7 +13,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void From_WithValidPositiveInt_ReturnsPersonId()
         {
             // Arrange
-            const int validId = 42;
+            var validId = Guid.NewGuid();
 
             // Act
             var personId = PersonId.From(validId);
@@ -22,17 +22,15 @@ namespace Fb2Library.Domain.Tests.Persons
             personId.Value.Should().Be(validId);
         }
 
-        [Theory]
-        [InlineData(-1)]
-        [InlineData(-100)]
-        public void From_WithInvalidInt_ThrowsArgumentException(int invalidId)
+        [Fact]
+        public void From_WithInvalidInt_ThrowsArgumentException()
         {
             // Act
-            Func<PersonId> act = () => PersonId.From(invalidId);
+            Func<PersonId> act = () => PersonId.From(Guid.Empty);
 
             // Assert
             act.Should().Throw<ArgumentException>()
-                .WithMessage("PersonId must be greater than 0*");
+                .WithMessage("PersonId Can't be empty*");
         }
 
         [Fact]
@@ -42,7 +40,7 @@ namespace Fb2Library.Domain.Tests.Persons
             var personId = PersonId.New();
 
             // Assert
-            personId.Value.Should().Be(0);
+            personId.Value.Should().NotBe(Guid.Empty);
         }
         #endregion
 
@@ -52,8 +50,9 @@ namespace Fb2Library.Domain.Tests.Persons
         public void TwoPersonIds_WithSameValue_AreEqual()
         {
             // Arrange
-            var id1 = PersonId.From(42);
-            var id2 = PersonId.From(42);
+            var guid = Guid.NewGuid();
+            var id1 = PersonId.From(guid);
+            var id2 = PersonId.From(guid);
 
             // Act & Assert
             id1.Should().Be(id2);
@@ -66,8 +65,8 @@ namespace Fb2Library.Domain.Tests.Persons
         public void TwoPersonIds_WithDifferentValues_AreNotEqual()
         {
             // Arrange
-            var id1 = PersonId.From(42);
-            var id2 = PersonId.From(100);
+            var id1 = PersonId.From(Guid.NewGuid());
+            var id2 = PersonId.From(Guid.NewGuid());
 
             // Act & Assert
             id1.Should().NotBe(id2);
@@ -80,7 +79,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void PersonId_WithNull_IsNotEqual()
         {
             // Arrange
-            var id = PersonId.From(42);
+            var id = PersonId.From(Guid.NewGuid());
 
             // Act & Assert
             id.Equals(null).Should().BeFalse();
@@ -91,7 +90,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void PersonId_WithDifferentType_IsNotEqual()
         {
             // Arrange
-            var id = PersonId.From(42);
+            var id = PersonId.From(Guid.NewGuid());
             var obj = new object();
 
             // Act & Assert
@@ -105,9 +104,10 @@ namespace Fb2Library.Domain.Tests.Persons
         [Fact]
         public void GetHashCode_ForSameValue_ReturnsSameHashCode()
         {
+            var guid = Guid.NewGuid();
             // Arrange
-            var id1 = PersonId.From(42);
-            var id2 = PersonId.From(42);
+            var id1 = PersonId.From(guid);
+            var id2 = PersonId.From(guid);
 
             // Act
             var hash1 = id1.GetHashCode();
@@ -121,8 +121,8 @@ namespace Fb2Library.Domain.Tests.Persons
         public void GetHashCode_ForDifferentValues_ReturnsDifferentHashCodes()
         {
             // Arrange
-            var id1 = PersonId.From(42);
-            var id2 = PersonId.From(100);
+            var id1 = PersonId.From(Guid.NewGuid());
+            var id2 = PersonId.From(Guid.NewGuid());
 
             // Act
             var hash1 = id1.GetHashCode();
@@ -141,8 +141,9 @@ namespace Fb2Library.Domain.Tests.Persons
         {
             // Arrange
             var dict = new Dictionary<PersonId, string>();
-            var id1 = PersonId.From(42);
-            var id2 = PersonId.From(42); // То же значение
+            var guid = Guid.NewGuid();
+            var id1 = PersonId.From(guid);
+            var id2 = PersonId.From(guid); // То же значение
 
             // Act
             dict[id1] = "Test";
@@ -157,8 +158,9 @@ namespace Fb2Library.Domain.Tests.Persons
         {
             // Arrange
             var set = new HashSet<PersonId>();
-            var id1 = PersonId.From(42);
-            var id2 = PersonId.From(42);
+            var guid = Guid.NewGuid();
+            var id1 = PersonId.From(guid);
+            var id2 = PersonId.From(guid);
 
             // Act
             set.Add(id1);
@@ -174,8 +176,9 @@ namespace Fb2Library.Domain.Tests.Persons
         {
             // Arrange
             var ids = new List<PersonId>();
-            var id1 = PersonId.From(42);
-            var id2 = PersonId.From(42);
+            var guid = Guid.NewGuid();
+            var id1 = PersonId.From(guid);
+            var id2 = PersonId.From(guid);
 
             // Act
             ids.Add(id1);
@@ -195,7 +198,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void ImplicitConversion_FromIntToPersonId_Works()
         {
             // Arrange
-            const int value = 42;
+            var value = Guid.NewGuid();
 
             // Act
             PersonId personId = value;
@@ -208,20 +211,21 @@ namespace Fb2Library.Domain.Tests.Persons
         public void ImplicitConversion_FromPersonIdToInt_Works()
         {
             // Arrange
-            var personId = PersonId.From(42);
+            var guid = Guid.NewGuid();
+            var personId = PersonId.From(guid);
 
             // Act
-            int value = personId;
+            Guid value = personId;
 
             // Assert
-            value.Should().Be(42);
+            value.Should().Be(guid);
         }
 
         [Fact]
         public void ImplicitConversion_WithInvalidValue_ThrowsException()
         {
             // Act
-            Action act = () => { PersonId personId = -1; };
+            Action act = () => { PersonId personId = Guid.Empty; };
 
             // Assert
             act.Should().Throw<ArgumentException>();
@@ -235,17 +239,18 @@ namespace Fb2Library.Domain.Tests.Persons
         public void ToString_ReturnsValueAsString()
         {
             // Arrange
-            var personId = PersonId.From(42);
+            var guid = Guid.NewGuid();
+            var personId = PersonId.From(guid);
 
             // Act
             var result = personId.ToString();
 
             // Assert
-            result.Should().Be("42");
+            result.Should().Be(guid.ToString());
         }
 
         [Fact]
-        public void ToString_ForNewId_ReturnsZero()
+        public void ToString_ForNewId_ReturnsNotEmpty()
         {
             // Arrange
             var personId = PersonId.New();
@@ -254,7 +259,7 @@ namespace Fb2Library.Domain.Tests.Persons
             var result = personId.ToString();
 
             // Assert
-            result.Should().Be("0");
+            result.Should().NotBeEmpty();
         }
 
         #endregion
@@ -265,7 +270,8 @@ namespace Fb2Library.Domain.Tests.Persons
         public void PersonId_CanBeSerializedToJson()
         {
             // Arrange
-            var personId = PersonId.From(42);
+            var guid = Guid.NewGuid();
+            var personId = PersonId.From(guid);
 
             // Act
             var json = JsonSerializer.Serialize(personId);
@@ -273,14 +279,14 @@ namespace Fb2Library.Domain.Tests.Persons
 
             // Assert
             deserialized.Should().Be(personId);
-            deserialized?.Value.Should().Be(42);
+            deserialized?.Value.Should().Be(guid);
         }
 
         [Fact]
         public void PersonId_CanBeSerializedAsProperty()
         {
             // Arrange
-            var obj = new TestClass { Id = PersonId.From(42), Name = "Test" };
+            var obj = new TestClass { Id = PersonId.From(Guid.NewGuid()), Name = "Test" };
 
             // Act
             var json = JsonSerializer.Serialize(obj);
@@ -306,48 +312,19 @@ namespace Fb2Library.Domain.Tests.Persons
         {
             // Arrange - используем AutoFixture
             var fixture = new Fixture();
-            Generator<int> generator = fixture.Create<Generator<int>>();
+            Generator<Guid> generator = fixture.Create<Generator<Guid>>();
 
             // Act & Assert - проверяем для разных значений
             var ids = generator.Take(100).Select(PersonId.From).ToList();
 
             foreach (PersonId? id in ids)
             {
-                id.Value.Should().BeGreaterThan(0);
+                id.Value.Should().NotBeEmpty();
             }
         }
 
         #endregion
 
-        #region Граничные случаи
-
-        [Fact]
-        public void PersonId_WithMaxIntValue_Works()
-        {
-            // Arrange
-            const int maxValue = int.MaxValue;
-
-            // Act
-            var personId = PersonId.From(maxValue);
-
-            // Assert
-            personId.Value.Should().Be(maxValue);
-        }
-
-        [Fact]
-        public void PersonId_WithMinPositiveValue_Works()
-        {
-            // Arrange
-            const int minValue = 1;
-
-            // Act
-            var personId = PersonId.From(minValue);
-
-            // Assert
-            personId.Value.Should().Be(minValue);
-        }
-
-        #endregion
 
         #region Сравнение
 
@@ -355,9 +332,10 @@ namespace Fb2Library.Domain.Tests.Persons
         public void PersonId_ImplementsIComparable()
         {
             // Arrange
-            var id1 = PersonId.From(1);
-            var id2 = PersonId.From(2);
-            var id3 = PersonId.From(2);
+            var id1 = PersonId.From(Guid.NewGuid());
+            var guid = Guid.NewGuid();
+            var id2 = PersonId.From(guid);
+            var id3 = PersonId.From(guid);
 
             // Act & Assert
             id1.Should().BeLessThan(id2);
@@ -365,27 +343,7 @@ namespace Fb2Library.Domain.Tests.Persons
             id1.CompareTo(id2).Should().BeNegative();
             id2.CompareTo(id1).Should().BePositive();
             id2.CompareTo(id3).Should().Be(0);
-        }
-
-        [Fact]
-        public void PersonId_SupportsOrdering()
-        {
-            // Arrange
-            PersonId[] ids = [
-                PersonId.From(5),
-                PersonId.From(2),
-                PersonId.From(8),
-                PersonId.From(1)
-                ];
-
-            // Act
-            var sorted = ids.OrderBy(x => x).ToList();
-
-            // Assert
-            sorted.Select(x => x.Value).Should().BeInAscendingOrder();
-            sorted.Select(x => x.Value).Should().BeEquivalentTo(new[] { 1, 2, 5, 8 });
-        }
-
+        }        
         #endregion
     }
 }

@@ -1,7 +1,7 @@
 namespace Fb2Library.Domain.Shared
 {
     public abstract class Entity<TId> : IEquatable<Entity<TId>>
-        where TId : IntIdentity
+        where TId : GuidIdentity
     {
         public TId Id { get; protected set; }
 

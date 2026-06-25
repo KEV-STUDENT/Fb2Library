@@ -3,7 +3,7 @@
 namespace Fb2Library.Domain.Shared
 {
     public abstract class AggregateRoot<TId> : Entity<TId>
-        where TId : IntIdentity
+        where TId : GuidIdentity
     {
         private readonly List<IDomainEvent> _domainEvents = [];
 

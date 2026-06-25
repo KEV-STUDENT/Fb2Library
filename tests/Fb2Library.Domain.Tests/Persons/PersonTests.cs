@@ -19,7 +19,7 @@ namespace Fb2Library.Domain.Tests.Persons
             var person = new Person(name);
 
             // Assert
-            person.Id.Value.Should().Be(0);
+            person.Id.Value.Should().NotBeEmpty();
             person.Name.Should().Be(name);
         }
     }
