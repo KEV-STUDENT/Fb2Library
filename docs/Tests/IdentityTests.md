@@ -72,4 +72,4 @@ public class PersonIdMinimumTests
 **Минимум:** 10-15 тестов для каждого типа PersonId (int и/или GUID).  
 **Рекомендуемый минимум:** включить тесты для всех критических сценариев из чеклиста.
 
-[Примеры тестов для PersonId](.\Examples\PersonalIdTests_Example.md)
+[Примеры тестов для PersonId](./Examples/PersonalIdTests_Example.md)
