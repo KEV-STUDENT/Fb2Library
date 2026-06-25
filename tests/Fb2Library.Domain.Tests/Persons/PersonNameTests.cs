@@ -1,6 +1,5 @@
-using Fb2Library.Domain.Exceptions;
-using FluentAssertions;
 using Fb2Library.Domain.Persons;
+using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Persons
 {

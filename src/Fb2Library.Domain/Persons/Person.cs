@@ -5,7 +5,7 @@ namespace Fb2Library.Domain.Persons
         public Person(PersonName name)
         {
             Name = name;
-            Id = new();
+            Id = PersonId.New();
         }
 
         public PersonName Name { get; }
