@@ -15,4 +15,4 @@ dotnet add package NSubstitute.Analyzers.CSharp # анализатор для п
 dotnet add package Microsoft.NET.Test.Sdk       # инфраструктура для запуска тестов  
 dotnet add package coverlet.collector           # для измерения покрытия кода  
 
-[Тесты для ValueObjects представляющие идентификаторы сущностей](.\Tests\IdentityTests.md)
+[Тесты для ValueObjects представляющие идентификаторы сущностей](./Tests/IdentityTests.md)
