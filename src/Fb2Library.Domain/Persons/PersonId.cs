@@ -2,7 +2,7 @@ using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Persons
 {
-    public record PersonId : IntIdentity
+    public sealed record PersonId : IntIdentity
     {
         public PersonId(int value) : base(value) { }
 

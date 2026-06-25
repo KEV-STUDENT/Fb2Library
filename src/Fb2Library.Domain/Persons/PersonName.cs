@@ -1,6 +1,6 @@
 namespace Fb2Library.Domain.Persons
 {
-    public record PersonName
+    public sealed record PersonName
     {
         private readonly string _firstName;
         private readonly string _lastName;

@@ -1,6 +1,6 @@
 namespace Fb2Library.Domain.Persons
 {
-    public class Person
+    public sealed class Person
     {
         public Person(PersonName name)
         {
