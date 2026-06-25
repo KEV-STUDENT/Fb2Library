@@ -1,6 +1,6 @@
 using Fb2Library.Domain.Exceptions;
 
-namespace Fb2Library.Domain.ValueObjects
+namespace Fb2Library.Domain.Persons
 {
     public class PersonName : IEquatable<PersonName>
     {

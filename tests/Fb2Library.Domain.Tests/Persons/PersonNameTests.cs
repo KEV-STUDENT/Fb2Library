@@ -1,8 +1,8 @@
-using Fb2Library.Domain.ValueObjects;
 using Fb2Library.Domain.Exceptions;
 using FluentAssertions;
+using Fb2Library.Domain.Persons;
 
-namespace Fb2Library.Domain.Tests.ValueObjects
+namespace Fb2Library.Domain.Tests.Persons
 {
     public class PersonNameTests
     {

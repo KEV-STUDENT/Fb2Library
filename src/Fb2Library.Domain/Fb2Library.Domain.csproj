@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <Folder Include="Entities\" />
+    <Folder Include="Common\" />
+    <Folder Include="ValueObjects\" />
   </ItemGroup>
 
   <ItemGroup>
