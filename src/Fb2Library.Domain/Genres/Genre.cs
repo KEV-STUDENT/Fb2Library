@@ -5,18 +5,15 @@ namespace Fb2Library.Domain.Genres
 {
     public sealed class Genre : Entity<GenreId>
     {
-        private readonly GenreCode _code;
-        private readonly string _description;
-
         private Genre(GenreCode code, string description) : base()
         {
-            _code = code;
-            _description = description;
+            Code = code;
+            Description = description;
         }
 
-        public GenreCode Code => _code;
+        public GenreCode Code { get; }
 
-        public string Description => _description;
+        public string Description { get; }
 
         public static Genre Create(string code, string description = "")
         {
