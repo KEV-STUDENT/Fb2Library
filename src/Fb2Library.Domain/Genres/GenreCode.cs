@@ -13,7 +13,16 @@ namespace Fb2Library.Domain.Genres
 
         private static string NormalizeCode(string code) => code.Trim().ToLowerInvariant();
 
-        public string Value => _value;
+        public string Value
+        {
+            get => _value;
+            init
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Value cannot be empty");
+                _value = NormalizeCode(value);
+            }
+        }
         public static GenreCode Create(string code) => new(code);
 
         public override string ToString() => Value;

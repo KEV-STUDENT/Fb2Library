@@ -14,7 +14,15 @@ namespace Fb2Library.Domain.Keywords
 
         private static string NormalizeCode(string code) => code.Trim().ToLowerInvariant();
 
-        public string Value => _value;
+        public string Value {
+            get => _value;
+            init
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new ArgumentException("Value cannot be empty");
+                _value = NormalizeCode(value);
+            }
+        }
         public static KeywordWord Create(string code) => new(code);
 
         public override string ToString() => Value;

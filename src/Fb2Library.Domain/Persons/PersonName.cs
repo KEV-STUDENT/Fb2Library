@@ -72,5 +72,19 @@ namespace Fb2Library.Domain.Persons
             name = name.Trim();
             return char.ToUpper(name[0]) + name[1..].ToLower();
         }
+
+        // don't use FullName, ShortName & SortName when check Equals
+        public bool Equals(PersonName? other)
+        {
+            if (other is null) return false;
+            if (ReferenceEquals(this, other)) return true;
+
+            return _firstName == other._firstName &&
+                   _lastName == other._lastName &&
+                   _middleName == other._middleName &&
+                   _nickName == other._nickName;
+        }
+
+        public override int GetHashCode() => HashCode.Combine(_firstName, _lastName, _middleName, _nickName);
     }
 }
