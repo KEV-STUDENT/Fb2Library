@@ -10,7 +10,9 @@ erDiagram
     Books ||--o| Covers : ""
     Books ||--o| BooksPublishers : "издана"
     Publishers ||--|{ BooksPublishers : "издал"
-
+    Books ||--0| BooksSequences : "входит в серию"
+    Sequences||--|{ BooksSequences : "включает в себя"
+    
     Documents ||--o| ArchiveEntries : "размещается"
     ArchiveFiles ||--|{ ArchiveEntries : "содержит"
     Documents ||--o| BooksFiles : "размещается"
@@ -117,4 +119,15 @@ erDiagram
      BooksPublishers{
         int BookId      PK, FK
         int PublisherID PK, FK
+     }
+
+     Sequences{
+        int Id PK
+        string Code "UK"
+     }
+     
+      BooksSequences{
+        int BookId      PK, FK
+        int SequenceID  PK, FK
+        byte Volume
      }
