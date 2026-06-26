@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Entities\" />
+    <Folder Include="Keywords\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
