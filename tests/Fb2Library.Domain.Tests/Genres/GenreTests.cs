@@ -5,8 +5,10 @@ using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Genres
 {
-    public class GenreTests
+    public class GenreTests : EntityTests<Genre, GenreId>
     {
+        protected override Genre CreateEntity() => Genre.Create("Test1", "Test1");
+
         [Fact]
         public void Create_WithValidCode_ShouldSetProperties()
         {
@@ -17,21 +19,8 @@ namespace Fb2Library.Domain.Tests.Genres
             var genre = Genre.Create("sf", "since fantastic");
 
             // Assert
-            genre.Should().BeOfType<Genre>().And.NotBeNull();
-            genre.Id.Value.Should().NotBeEmpty();
             genre.Code.Should().Be(name);
             genre.Description.Should().Be("since fantastic");
-        }
-
-        [Fact]
-        public void Create_TwoNewGenres_IdsAreNotEqual()
-        {
-            // Arrange & Act
-            var genre1 = Genre.Create("Test1", "Test1");
-            var genre2 = Genre.Create("Test2", "Test2");
-
-            // Assert
-            genre1.Id.Should().NotBe(genre2.Id);
         }
 
         [Theory]
