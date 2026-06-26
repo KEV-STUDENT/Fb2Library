@@ -1,9 +1,8 @@
 
-using Fb2Library.Domain.Genres;
-using Fb2Library.Domain.Persons;
-using FluentAssertions;
 using System.Text.Json;
 using AutoFixture;
+using Fb2Library.Domain.Genres;
+using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Genres
 {
