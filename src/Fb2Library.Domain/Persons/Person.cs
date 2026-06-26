@@ -5,13 +5,12 @@ namespace Fb2Library.Domain.Persons
 {
     public sealed class Person : AggregateRoot<PersonId>
     {
-        private Person(PersonName name)
+        private Person(PersonName name) : base()
         {
             if (name is null)
                 throw new DomainException("Name for Person must be specify");
 
             Name = name;
-            Id = PersonId.New();
         }
 
         public PersonName Name { get; }

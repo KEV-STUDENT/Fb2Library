@@ -32,6 +32,8 @@ namespace Fb2Library.Domain.Tests.Genres
         [InlineData("sF", "sf")]
         [InlineData("SF", "sf")]
         [InlineData("Sf", "sf")]
+        [InlineData("  sF", "sf")]
+        [InlineData("sF   ", "sf")]
         public void Code_ShouldFormatCorrectly(string actual, string expected)
         {
             // Act
