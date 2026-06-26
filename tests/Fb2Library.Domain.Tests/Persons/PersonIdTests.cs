@@ -322,28 +322,6 @@ namespace Fb2Library.Domain.Tests.Persons
                 id.Value.Should().NotBeEmpty();
             }
         }
-
-        #endregion
-
-
-        #region Сравнение
-
-        [Fact]
-        public void PersonId_ImplementsIComparable()
-        {
-            // Arrange
-            var id1 = PersonId.From(Guid.NewGuid());
-            var guid = Guid.NewGuid();
-            var id2 = PersonId.From(guid);
-            var id3 = PersonId.From(guid);
-
-            // Act & Assert
-            id1.Should().BeLessThan(id2);
-
-            id1.CompareTo(id2).Should().BeNegative();
-            id2.CompareTo(id1).Should().BePositive();
-            id2.CompareTo(id3).Should().Be(0);
-        }        
         #endregion
     }
 }

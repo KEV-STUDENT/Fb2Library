@@ -7,7 +7,7 @@ namespace Fb2Library.Domain.Persons
         private readonly string? _middleName;
         private readonly string? _nickName;
 
-        public PersonName(string firstName, string lastName, string? middleName = null, string? nickName = null)
+        private PersonName(string firstName, string lastName, string? middleName = null, string? nickName = null)
         {
             if (string.IsNullOrWhiteSpace(firstName))
                 throw new ArgumentException("Value cannot be empty", nameof(firstName));
@@ -24,6 +24,11 @@ namespace Fb2Library.Domain.Persons
                 _middleName = NormalizeName(middleName);
 
             _nickName = nickName?.Trim();
+        }
+
+        public static PersonName Create(string firstName, string lastName, string? middleName = null, string? nickName = null)
+        {
+            return new PersonName(firstName, lastName, middleName, nickName);
         }
 
         public string FirstName {

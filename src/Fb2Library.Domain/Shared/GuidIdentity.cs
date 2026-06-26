@@ -28,7 +28,7 @@ namespace Fb2Library.Domain.Shared
                 throw new ArgumentException($"{GetType().Name} Can't be empty", nameof(value));
         }
 
-        // авто-приведение к int
+        // авто-приведение к Guid
         public static implicit operator Guid(GuidIdentity id) => id.Value;
 
         public int CompareTo(GuidIdentity? other)
@@ -44,10 +44,10 @@ namespace Fb2Library.Domain.Shared
             throw new ArgumentException($"Object must be of type {nameof(GuidIdentity)}");
         }
 
-        // Операторы сравнения
-        public static bool operator <(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) < 0;
-        public static bool operator >(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) > 0;
-        public static bool operator <=(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) <= 0;
-        public static bool operator >=(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) >= 0;
+        //// Операторы сравнения
+        //public static bool operator <(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) < 0;
+        //public static bool operator >(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) > 0;
+        //public static bool operator <=(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) <= 0;
+        //public static bool operator >=(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) >= 0;
     }
 }

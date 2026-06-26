@@ -9,7 +9,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void Create_WithValidFirstAndLastName_ShouldSetProperties()
         {
             // Arrange & Act
-            var name = new PersonName("Лев", "Толстой", "Николаевич", "The Great");
+            var name = PersonName.Create("Лев", "Толстой", "Николаевич", "The Great");
 
             // Assert
             name.FirstName.Should().Be("Лев");
@@ -27,7 +27,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void Create_InvalidFirstName_ShouldThrowArgumentException(string firstname)
         {
             // Act
-            Func<PersonName> act = () => new PersonName(firstname, "Толстой");
+            Func<PersonName> act = () => PersonName.Create(firstname, "Толстой");
 
             // Assert
             act.Should().Throw<ArgumentException>()
@@ -41,7 +41,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void Create_InvalidLastName_ShouldThrowArgumentException(string lastName)
         {
             // Act
-            Func<PersonName> act = () => new PersonName("Лев", lastName);
+            Func<PersonName> act = () => PersonName.Create("Лев", lastName);
 
             // Assert
             act.Should().Throw<ArgumentException>()
@@ -56,7 +56,7 @@ namespace Fb2Library.Domain.Tests.Persons
         public void FullName_ShouldFormatCorrectly(string firstName, string lastName, string? middleName, string expected)
         {
             // Act
-            var name = new PersonName(firstName, lastName, middleName);
+            var name = PersonName.Create(firstName, lastName, middleName);
 
             // Assert
             name.FullName.Should().Be(expected);
@@ -66,8 +66,8 @@ namespace Fb2Library.Domain.Tests.Persons
         public void TwoInstances_WithSameValues_ShouldBeEqual()
         {
             // Arrange
-            var name1 = new PersonName("Лев", "Толстой");
-            var name2 = new PersonName("Лев", "Толстой");
+            var name1 = PersonName.Create("Лев", "Толстой");
+            var name2 = PersonName.Create("Лев", "Толстой");
 
             // Assert
             name1.Should().Be(name2);
@@ -78,8 +78,8 @@ namespace Fb2Library.Domain.Tests.Persons
         public void TwoInstances_WithDifferentValues_ShouldNotBeEqual()
         {
             // Arrange
-            var name1 = new PersonName("Лев", "Толстой");
-            var name2 = new PersonName("Александр", "Пушкин");
+            var name1 = PersonName.Create("Лев", "Толстой");
+            var name2 = PersonName.Create("Александр", "Пушкин");
 
             // Assert
             name1.Should().NotBe(name2);

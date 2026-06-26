@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Entities\" />
+    <Folder Include="Genres\" />
     <Folder Include="ValueObjects\" />
   </ItemGroup>
 
