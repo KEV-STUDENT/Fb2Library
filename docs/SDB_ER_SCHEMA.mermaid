@@ -10,7 +10,7 @@ erDiagram
     Books ||--o| Covers : ""
     Books ||--o| BooksPublishers : "издана"
     Publishers ||--|{ BooksPublishers : "издал"
-    Books ||--0| BooksSequences : "входит в серию"
+    Books ||--o| BooksSequences : "входит в серию"
     Sequences||--|{ BooksSequences : "включает в себя"
     
     Documents ||--o| ArchiveEntries : "размещается"
