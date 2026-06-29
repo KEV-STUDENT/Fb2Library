@@ -4,22 +4,11 @@ using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Keywords
 {
-    public class KeywordTests : EntityTests<Keyword, KeywordId>
+    public class KeywordTests : EntityTests<Keyword, KeywordId, KeywordWord>
     {
-        protected override Keyword CreateEntity() => Keyword.Create("Test");
+        protected override Keyword CreateEntity() => Keyword.Create("test");
+        protected override KeywordWord CreateValueObject() => KeywordWord.Create("test");
 
-        [Fact]
-        public void Create_WithValidCode_ShouldSetProperties()
-        {
-            // Arrange
-            var word = KeywordWord.Create("test");
-
-            // Act
-            var kw = Keyword.Create("test");
-
-            // Assert
-            kw.Word.Should().Be(word);
-        }
 
         [Theory]
         [InlineData("")]
@@ -31,7 +20,7 @@ namespace Fb2Library.Domain.Tests.Keywords
 
             // Assert
             act.Should().Throw<DomainException>()
-                .WithMessage("*Keyword must be specified*");
+                .WithMessage("*must be specified*");
         }
     }
 }

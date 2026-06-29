@@ -3,15 +3,12 @@ using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Genres
 {
-    public sealed class Genre : Entity<GenreId>
+    public sealed class Genre : Entity<GenreId, GenreCode>
     {
-        private Genre(GenreCode code, string description) : base()
+        private Genre(GenreCode code, string description) : base(code)
         {
-            Code = code;
             Description = description;
         }
-
-        public GenreCode Code { get; }
 
         public string Description { get; }
 

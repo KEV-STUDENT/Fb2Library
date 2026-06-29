@@ -3,12 +3,13 @@ using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests
 {
-    public abstract class EntityTests<T1,T2>
-        where T1 : Entity<T2>
+    public abstract class EntityTests<T1,T2,T3>
+        where T1 : Entity<T2,T3>
         where T2 : GuidIdentity
     {
 
         protected abstract T1 CreateEntity();
+        protected abstract T3 CreateValueObject();
 
         [Fact]
         public void Create_ShouldbProperTypeNotNull()
@@ -30,6 +31,19 @@ namespace Fb2Library.Domain.Tests
 
             // Assert
             entity1.Id.Should().NotBe(entity2.Id);
+        }
+
+        [Fact]
+        public void Create_WithValidData_ShouldSetProperties()
+        {
+            // Arrange
+            T3 valueObject = CreateValueObject();
+
+            // Act
+            T1 entity = CreateEntity();
+
+            // Assert
+            entity.Value.Should().Be(valueObject);
         }
     }
 }

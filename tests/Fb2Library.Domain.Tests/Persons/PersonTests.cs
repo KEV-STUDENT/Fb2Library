@@ -3,21 +3,10 @@ using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Persons
 {
-    public class PersonTests : EntityTests<Person,  PersonId>
+    public class PersonTests : EntityTests<Person,  PersonId, PersonName>
     {
-        protected override Person CreateEntity() => Person.Create("Лев", "Толстой");
-        [Fact]
-        public void Create_WithValidName_ShouldSetProperties()
-        {
-            // Arrange
-            var name = PersonName.Create("Лев", "Толстой", "Николаевич", "The Great");
-
-            // Act
-            var person = Person.Create("Лев", "Толстой", "Николаевич", "The Great");
-
-            // Assert
-            person.Name.Should().Be(name);
-        }
+        protected override Person CreateEntity() => Person.Create("Лев", "Толстой", "Николаевич", "The Great");
+        protected override PersonName CreateValueObject() => PersonName.Create("Лев", "Толстой", "Николаевич", "The Great");
 
         [Fact]
         public void Create_WithValidData_ShouldSucceed()
@@ -26,7 +15,7 @@ namespace Fb2Library.Domain.Tests.Persons
             var person = Person.Create("Иван", "Иванов", "Иванович");
 
             // Assert
-            person.Name.LastName.Should().Be("Иванов");
+            person.Value.LastName.Should().Be("Иванов");
             //person.BookAuthorships.Should().BeEmpty();
             //person.Translator.Should().BeEmpty();
             //person.DocumentAuthorships.Should().BeEmpty();

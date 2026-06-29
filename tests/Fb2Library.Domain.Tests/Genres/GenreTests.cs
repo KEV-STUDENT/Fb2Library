@@ -5,21 +5,18 @@ using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Genres
 {
-    public class GenreTests : EntityTests<Genre, GenreId>
+    public class GenreTests : EntityTests<Genre, GenreId, GenreCode>
     {
-        protected override Genre CreateEntity() => Genre.Create("Test1", "Test1");
+        protected override Genre CreateEntity() => Genre.Create("sf", "since fantastic");
+        protected override GenreCode CreateValueObject() => GenreCode.Create("sf");
 
         [Fact]
         public void Create_WithValidCode_ShouldSetProperties()
         {
-            // Arrange
-            var name = GenreCode.Create("sf");
-
-            // Act
-            var genre = Genre.Create("sf", "since fantastic");
+            // Arrange & Act
+            Genre genre = CreateEntity();
 
             // Assert
-            genre.Code.Should().Be(name);
             genre.Description.Should().Be("since fantastic");
         }
 
@@ -33,7 +30,7 @@ namespace Fb2Library.Domain.Tests.Genres
 
             // Assert
             act.Should().Throw<DomainException>()
-                .WithMessage("*Code for Genre must be specify*");
+                .WithMessage("*must be specify*");
         }
 
         [Fact]
@@ -45,6 +42,6 @@ namespace Fb2Library.Domain.Tests.Genres
             // Assert
             act.Should().Throw<ArgumentNullException>()
                 .WithMessage("*Description is null*");
-        }
+        }       
     }
 }

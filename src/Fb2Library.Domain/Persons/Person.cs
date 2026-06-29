@@ -1,20 +1,11 @@
 using Fb2Library.Domain.Shared;
-using Fb2Library.Domain.Exceptions;
 
 namespace Fb2Library.Domain.Persons
 {
-    public sealed class Person : AggregateRoot<PersonId>
+    public sealed class Person : AggregateRoot<PersonId, PersonName>
     {
-        private Person(PersonName name) : base()
-        {
-            if (name is null)
-                throw new DomainException("Name for Person must be specify");
-
-            Name = name;
-        }
-
-        public PersonName Name { get; }
-
+        private Person(PersonName name) : base(name) { }
+       
         public static Person Create(string firstName, string lastName, string? middleName = null, string? nickName = null)
         {
             return new Person(PersonName.Create(firstName, lastName, middleName, nickName));
