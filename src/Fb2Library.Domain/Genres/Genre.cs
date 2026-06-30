@@ -3,7 +3,7 @@ using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Genres
 {
-    public sealed class Genre : Entity<GenreId, GenreCode>
+    public sealed class Genre : AggregateRoot<GenreId, GenreCode>
     {
         private Genre(GenreCode code, string description) : base(code)
         {

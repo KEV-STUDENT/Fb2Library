@@ -1,10 +1,14 @@
+using Fb2Library.Domain.Books.Events;
 using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Books
 {
     public sealed class Book : AggregateRoot<BookId, BookInfo>
     {
-        public Book(BookInfo vo) : base(vo) { }
+        public Book(BookInfo vo) : base(vo)
+        {
+            AddDomainEvent(new BookCreatedEvent(Id));
+        }
         public static Book Create(string title, uint? year, string? city) => new(BookInfo.Create(title, year, city));
         protected override BookId GetNewId() => BookId.New();
     }
