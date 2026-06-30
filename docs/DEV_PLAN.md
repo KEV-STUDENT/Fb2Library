@@ -35,7 +35,7 @@
 
 В Domain :
 - [x] Создать сущность  `Person` (базовая)
-- [ ] Создать сущность  `Keyword`, `Genre`, `Publisher`, `Sequence` (справочники)
+- [x] Создать сущность  `Keyword`, `Genre`, `Publisher`, `Sequence` (справочники)
 - [ ] Создать сущность  `Book` (центральная)
 - [ ] Создать сущность  `BookAuthor`, `BooksKeyword`, `BooksGenre`, `BooksPublisher` (связи)
 - [ ] Создать сущность  `Translator` (связь с Persons и Books)
