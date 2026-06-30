@@ -2,7 +2,7 @@ using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Sequences
 {
-    public sealed record SequenceId : GuidIdentity
+    public sealed record SequenceId : GuidIdentity, IIdentityFabric<SequenceId, Guid>
     {
         public SequenceId(Guid value) : base(value) { }
 

@@ -2,7 +2,7 @@ using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Keywords
 {
-    public sealed record KeywordId : GuidIdentity
+    public sealed record KeywordId : GuidIdentity, IIdentityFabric<KeywordId, Guid>
     {
         public KeywordId(Guid value) : base(value) { }
         public static KeywordId From(Guid value) => new(value);
