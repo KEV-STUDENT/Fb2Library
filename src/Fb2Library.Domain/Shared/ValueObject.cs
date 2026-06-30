@@ -40,5 +40,6 @@ namespace Fb2Library.Domain.Shared
         protected override int GetHashCodeFromValue() => Value.ToUpperInvariant().GetHashCode();
         protected override bool IsNullOrEmty(string code) => string.IsNullOrWhiteSpace(code);
         protected override string NormalizeValue(string code) => code.Trim();
+
     }
 }

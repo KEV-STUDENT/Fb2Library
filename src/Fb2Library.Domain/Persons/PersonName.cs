@@ -44,7 +44,7 @@ namespace Fb2Library.Domain.Persons
         protected override int GetHashCodeFromValue() => Value.GetHashCodeFromValue();
     }
 
-    public record PersonNameVO
+    public sealed record PersonNameVO
     {
         public PersonNameVO(string firstName, string lastName, string? middleName = null, string? nickName = null)
         {
