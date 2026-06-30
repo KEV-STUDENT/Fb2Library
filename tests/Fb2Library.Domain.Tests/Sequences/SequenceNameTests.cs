@@ -1,80 +1,37 @@
 using Fb2Library.Domain.Sequences;
-using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Sequences
 {
-    public class SequenceNameTests
+    public class SequenceNameTests : ValueObjectTests<SequenceName, string>
     {
-        [Fact]
-        public void Create_WithValidWord_ShouldSetProperties()
+        protected override string Value1 => "test1";
+        protected override string Value2 => "test2";
+        public static IEnumerable<object[]> GetInvalidData()
         {
-            // Arrange & Act
-            var code = SequenceName.Create("sf");
-
-            // Assert
-            code.Value.Should().Be("sf");
+            yield return new object[] { "" };
+            yield return new object[] { " " };
+            yield return new object[] { null! };
         }
+        public static IEnumerable<object[]> GetActualExpectedData()
+        {
+            yield return new object[] { "tEst", "tEst" };
+            yield return new object[] { "TEST", "TEST" };
+            yield return new object[] { "Test", "Test" };
+            yield return new object[] { "  Test", "Test" };
+            yield return new object[] { "  Test  ", "Test" };
+            yield return new object[] { "Test  ", "Test" };
+        }
+
+        protected override SequenceName Create(string value) => SequenceName.Create(value);
 
         [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void Create_InvalidWord_ShouldThrowArgumentException(string code)
-        {
-            // Act
-            Func<SequenceName> act = () => SequenceName.Create(code);
-
-            // Assert
-            act.Should().Throw<ArgumentException>()
-                .WithMessage("*value*");
-        }
+        [MemberData(nameof(GetInvalidData))]
+        public override void Create_InvalidWord_ShouldThrowArgumentException(string code)
+            => Create_InvalidWord_ShouldThrowArgumentException_Exec(code);
 
         [Theory]
-        [InlineData("sF", "sf")]
-        [InlineData("SF", "sf")]
-        [InlineData("Sf", "sf")]
-        [InlineData("  sF", "sf")]
-        [InlineData("sF   ", "sf")]
-        public void Word_ShouldFormatCorrectly(string actual, string expected)
-        {
-            // Act
-            var name = SequenceName.Create(actual);
-            var exp = SequenceName.Create(expected);
-
-            // Assert
-            name.Should().Be(exp);
-        }
-
-        [Fact]
-        public void TwoInstances_WithSameValues_ShouldBeEqual()
-        {
-            // Arrange
-            var name1 = SequenceName.Create("sf");
-            var name2 = SequenceName.Create("sf");
-
-            // Assert
-            name1.Should().Be(name2);
-            name1.GetHashCode().Should().Be(name2.GetHashCode());
-        }
-
-        [Fact]
-        public void TwoInstances_WithDifferentValues_ShouldNotBeEqual()
-        {
-            // Arrange
-            var name1 = SequenceName.Create("sf");
-            var name2 = SequenceName.Create("dt");
-
-            // Assert
-            name1.Should().NotBe(name2);
-        }
-
-        [Fact]
-        public void ToString_ShouldBeValue()
-        {
-            // Arrange & Act
-            var code = SequenceName.Create("sf");
-
-            // Assert
-            code.ToString().Should().Be("sf");
-        }
+        [MemberData(nameof(GetActualExpectedData))]
+        public override void Value_ShouldFormatCorrectly(string actual, string expected)
+            => Value_ShouldFormatCorrectly_Exec(actual, expected);
     }
 }

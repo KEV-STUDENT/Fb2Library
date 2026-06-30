@@ -32,5 +32,6 @@
   <PropertyGroup Condition="$(MSBuildProjectName.EndsWith('.Tests'))">
     <IsPackable>false</IsPackable>
     <IsTestProject>true</IsTestProject>
+    <WarningsNotAsErrors>$(WarningsNotAsErrors);xUnit1013</WarningsNotAsErrors>
   </PropertyGroup>
 </Project>

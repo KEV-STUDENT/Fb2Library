@@ -1,79 +1,37 @@
 using Fb2Library.Domain.Keywords;
-using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Keywords
 {
-    public class KeywordWordTests
+    public class KeywordWordTests : ValueObjectTests<KeywordWord, string>
     {
-        [Fact]
-        public void Create_WithValidWord_ShouldSetProperties()
+        protected override string Value1 => "test1";
+        protected override string Value2 => "test2";
+        public static IEnumerable<object[]> GetInvalidData()
         {
-            // Arrange & Act
-            var code = KeywordWord.Create("sf");
-
-            // Assert
-            code.Value.Should().Be("sf");
+            yield return new object[] { "" };
+            yield return new object[] { " " };
+            yield return new object[] { null! };
         }
+        public static IEnumerable<object[]> GetActualExpectedData()
+        {
+            yield return new object[] { "tEst", "test" };
+            yield return new object[] { "TEST", "test" };
+            yield return new object[] { "Test", "test" };
+            yield return new object[] { "  Test", "test" };
+            yield return new object[] { "  Test  ", "test" };
+            yield return new object[] { "Test  ", "test" };
+        }
+
+        protected override KeywordWord Create(string value) => KeywordWord.Create(value);
 
         [Theory]
-        [InlineData("")]
-        [InlineData(" ")]
-        public void Create_InvalidWord_ShouldThrowArgumentException(string code)
-        {
-            // Act
-            Func<KeywordWord> act = () => KeywordWord.Create(code);
-
-            // Assert
-            act.Should().Throw<ArgumentException>()
-                .WithMessage("*value*");
-        }
+        [MemberData(nameof(GetInvalidData))]
+        public override void Create_InvalidWord_ShouldThrowArgumentException(string code)
+            => Create_InvalidWord_ShouldThrowArgumentException_Exec(code);
 
         [Theory]
-        [InlineData("sF", "sf")]
-        [InlineData("SF", "sf")]
-        [InlineData("Sf", "sf")]
-        [InlineData("  sF", "sf")]
-        [InlineData("sF   ", "sf")]
-        public void Word_ShouldFormatCorrectly(string actual, string expected)
-        {
-            // Act
-            var name = KeywordWord.Create(actual);
-
-            // Assert
-            name.Value.Should().Be(expected);
-        }
-
-        [Fact]
-        public void TwoInstances_WithSameValues_ShouldBeEqual()
-        {
-            // Arrange
-            var name1 = KeywordWord.Create("sf");
-            var name2 = KeywordWord.Create("sf");
-
-            // Assert
-            name1.Should().Be(name2);
-            name1.GetHashCode().Should().Be(name2.GetHashCode());
-        }
-
-        [Fact]
-        public void TwoInstances_WithDifferentValues_ShouldNotBeEqual()
-        {
-            // Arrange
-            var name1 = KeywordWord.Create("sf");
-            var name2 = KeywordWord.Create("dt");
-
-            // Assert
-            name1.Should().NotBe(name2);
-        }
-
-        [Fact]
-        public void ToString_ShouldBeValue()
-        {
-            // Arrange & Act
-            var code = KeywordWord.Create("sf");
-
-            // Assert
-            code.ToString().Should().Be("sf");
-        }
+        [MemberData(nameof(GetActualExpectedData))]
+        public override void Value_ShouldFormatCorrectly(string actual, string expected)
+            => Value_ShouldFormatCorrectly_Exec(actual, expected);
     }
 }

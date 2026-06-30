@@ -3,8 +3,16 @@ using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Persons
 {
-    public class PersonNameTests
+    public class PersonNameTests : ValueObjectTests<PersonName, PersonNameVO>
     {
+        protected override PersonNameVO Value1 => new("Лев", "Толстой", "Николаевич", "The Great");
+        protected override PersonNameVO Value2 => new("Александр", "Пушкин");
+        public static IEnumerable<object[]> GetActualExpectedData()
+        {
+            yield return new object[] { new PersonNameVO("лев", "толстой"), new PersonNameVO("Лев", "Толстой") };
+            yield return new object[] { new PersonNameVO("александр", "пушкин", "сергеевич", "the great"), new PersonNameVO("Александр", "Пушкин", "Сергеевич", "The Great") };
+        }
+
         [Fact]
         public void Create_WithValidFirstAndLastName_ShouldSetProperties()
         {
@@ -22,6 +30,20 @@ namespace Fb2Library.Domain.Tests.Persons
         }
 
         [Theory]
+        [InlineData("Лев", "Толстой", "Николаевич", "Толстой Лев Николаевич")]
+        [InlineData("лев", "толстой", "николаевич", "Толстой Лев Николаевич")]
+        [InlineData("Александр", "Пушкин", "Сергеевич", "Пушкин Александр Сергеевич")]
+        [InlineData("Федор", "Достоевский", null, "Достоевский Федор")]
+        public void FullName_ShouldFormatCorrectly(string firstName, string lastName, string? middleName, string expected)
+        {
+            // Act
+            var name = PersonName.Create(firstName, lastName, middleName);
+
+            // Assert
+            name.FullName.Should().Be(expected);
+        }
+
+                [Theory]
         [InlineData("")]
         [InlineData(" ")]
         public void Create_InvalidFirstName_ShouldThrowArgumentException(string firstname)
@@ -48,41 +70,14 @@ namespace Fb2Library.Domain.Tests.Persons
                 .WithMessage("*lastName*");
         }
 
+        protected override PersonName Create(PersonNameVO value) => PersonName.Create(value.FirstName, value.LastName, value.MiddleName, value.NickName);
+
         [Theory]
-        [InlineData("Лев", "Толстой", "Николаевич", "Толстой Лев Николаевич")]
-        [InlineData("лев", "толстой", "николаевич", "Толстой Лев Николаевич")]
-        [InlineData("Александр", "Пушкин", "Сергеевич", "Пушкин Александр Сергеевич")]
-        [InlineData("Федор", "Достоевский", null, "Достоевский Федор")]
-        public void FullName_ShouldFormatCorrectly(string firstName, string lastName, string? middleName, string expected)
-        {
-            // Act
-            var name = PersonName.Create(firstName, lastName, middleName);
-
-            // Assert
-            name.FullName.Should().Be(expected);
-        }
-
-        [Fact]
-        public void TwoInstances_WithSameValues_ShouldBeEqual()
-        {
-            // Arrange
-            var name1 = PersonName.Create("Лев", "Толстой");
-            var name2 = PersonName.Create("Лев", "Толстой");
-
-            // Assert
-            name1.Should().Be(name2);
-            name1.GetHashCode().Should().Be(name2.GetHashCode());
-        }
-
-        [Fact]
-        public void TwoInstances_WithDifferentValues_ShouldNotBeEqual()
-        {
-            // Arrange
-            var name1 = PersonName.Create("Лев", "Толстой");
-            var name2 = PersonName.Create("Александр", "Пушкин");
-
-            // Assert
-            name1.Should().NotBe(name2);
-        }
+        [MemberData(nameof(GetActualExpectedData))]
+        public override void Value_ShouldFormatCorrectly(PersonNameVO actual, PersonNameVO expected)
+            => Value_ShouldFormatCorrectly_Exec(actual, expected);
+#pragma warning disable xUnit1013
+        public override void Create_InvalidWord_ShouldThrowArgumentException(PersonNameVO code) {}
+#pragma warning restore xUnit1013
     }
 }

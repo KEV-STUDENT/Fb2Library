@@ -1,30 +1,14 @@
+using Fb2Library.Domain.Shared;
+
 namespace Fb2Library.Domain.Keywords
 {
-    public sealed record KeywordWord
+    public sealed record KeywordWord : StringValueObject
     {
-        private readonly string _value;
+        private KeywordWord(string value) : base(value){}
 
-        private KeywordWord(string code)
-        {
-            if (string.IsNullOrWhiteSpace(code))
-                throw new ArgumentException("Value cannot be empty", nameof(code));
-
-            _value = NormalizeCode(code);
-        }
-
-        private static string NormalizeCode(string code) => code.Trim().ToLowerInvariant();
-
-        public string Value {
-            get => _value;
-            init
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                    throw new ArgumentException("Value cannot be empty");
-                _value = NormalizeCode(value);
-            }
-        }
         public static KeywordWord Create(string code) => new(code);
 
         public override string ToString() => Value;
+        protected override string NormalizeValue(string code) => code.Trim().ToLowerInvariant();
     }
 }
