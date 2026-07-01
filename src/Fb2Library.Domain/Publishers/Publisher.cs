@@ -3,7 +3,7 @@ using Fb2Library.Domain.Shared;
 
 namespace Fb2Library.Domain.Publishers
 {
-    public sealed class Publisher : Entity<PublisherId, PublisherName>
+    public sealed class Publisher : AggregateRoot<PublisherId, PublisherName>
     {
         public Publisher(PublisherName publisherName) : base(publisherName) {}
 

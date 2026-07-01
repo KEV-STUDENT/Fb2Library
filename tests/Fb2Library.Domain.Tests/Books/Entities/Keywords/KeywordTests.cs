@@ -1,9 +1,9 @@
+using Fb2Library.Domain.Books.Entities.Keywords;
 using Fb2Library.Domain.Exceptions;
-using Fb2Library.Domain.Keywords;
 using Fb2Library.Domain.Tests.Shared;
 using FluentAssertions;
 
-namespace Fb2Library.Domain.Tests.Keywords
+namespace Fb2Library.Domain.Tests.Books.Entities.Keywords
 {
     public class KeywordTests : EntityTests<Keyword, KeywordId, KeywordWord>
     {

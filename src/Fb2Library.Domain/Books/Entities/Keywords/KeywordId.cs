@@ -1,6 +1,6 @@
 using Fb2Library.Domain.Shared;
 
-namespace Fb2Library.Domain.Keywords
+namespace Fb2Library.Domain.Books.Entities.Keywords
 {
     public sealed record KeywordId : GuidIdentity, IIdentityFabric<KeywordId, Guid>
     {

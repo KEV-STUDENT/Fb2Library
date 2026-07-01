@@ -1,7 +1,7 @@
-using Fb2Library.Domain.Keywords;
+using Fb2Library.Domain.Books.Entities.Keywords;
 using Fb2Library.Domain.Tests.Shared;
 
-namespace Fb2Library.Domain.Tests.Keywords
+namespace Fb2Library.Domain.Tests.Books.Entities.Keywords
 {
     public class KeywordWordTests : ValueObjectTests<KeywordWord, string>
     {

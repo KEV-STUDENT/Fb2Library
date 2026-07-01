@@ -1,9 +1,9 @@
 using Fb2Library.Domain.Exceptions;
 using Fb2Library.Domain.Shared;
 
-namespace Fb2Library.Domain.Keywords
+namespace Fb2Library.Domain.Books.Entities.Keywords
 {
-    public class Keyword : Entity<KeywordId, KeywordWord>
+    public class Keyword : AggregateRoot<KeywordId, KeywordWord>
     {
         private Keyword(KeywordWord word) : base(word) { }
         public static Keyword Create(string word)
