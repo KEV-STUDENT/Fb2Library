@@ -1,7 +1,7 @@
 using Fb2Library.Domain.Shared;
 using FluentAssertions;
 
-namespace Fb2Library.Domain.Tests
+namespace Fb2Library.Domain.Tests.Shared
 {
     public abstract class ValueObjectTests<T1,T2>
         where T1 : ValueObject<T2>

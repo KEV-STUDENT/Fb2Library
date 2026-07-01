@@ -2,7 +2,7 @@ using Fb2Library.Domain.Books;
 using Fb2Library.Domain.Shared;
 using FluentAssertions;
 
-namespace Fb2Library.Domain.Tests
+namespace Fb2Library.Domain.Tests.Shared
 {
     public class AggregateRootTests
     {

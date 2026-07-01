@@ -1,6 +1,7 @@
 
 using Fb2Library.Domain.Exceptions;
 using Fb2Library.Domain.Genres;
+using Fb2Library.Domain.Tests.Shared;
 using FluentAssertions;
 
 namespace Fb2Library.Domain.Tests.Genres

@@ -1,4 +1,5 @@
 using Fb2Library.Domain.Genres;
+using Fb2Library.Domain.Tests.Shared;
 
 namespace Fb2Library.Domain.Tests.Genres
 {

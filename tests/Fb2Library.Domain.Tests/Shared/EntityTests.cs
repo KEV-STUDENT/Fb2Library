@@ -1,7 +1,7 @@
 using Fb2Library.Domain.Shared;
 using FluentAssertions;
 
-namespace Fb2Library.Domain.Tests
+namespace Fb2Library.Domain.Tests.Shared
 {
     public abstract class EntityTests<T1,T2,T3>
         where T1 : Entity<T2,T3>

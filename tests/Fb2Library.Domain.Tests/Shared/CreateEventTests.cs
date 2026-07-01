@@ -1,9 +1,9 @@
 using Fb2Library.Domain.Shared;
 using FluentAssertions;
 
-namespace Fb2Library.Domain.Tests
+namespace Fb2Library.Domain.Tests.Shared
 {
-    public class DomainEventTests
+    public class CreateEventTests
     {
         [Fact]
         public void EveryEvent_ShouldHaveUniqueEventId()
