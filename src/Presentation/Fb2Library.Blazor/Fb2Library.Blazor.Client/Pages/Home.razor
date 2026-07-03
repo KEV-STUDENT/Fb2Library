@@ -1,0 +1,116 @@
+@page "/"
+@rendermode InteractiveWebAssembly
+@using System.IO
+@inject HttpClient Http
+
+<div class="container mt-5">
+	<div class="card shadow-sm">
+		<div class="card-header bg-primary text-white">
+			<h3 class="card-title mb-0">Локальный парсинг FB2 книг</h3>
+		</div>
+		<div class="card-body">
+			<p class="text-muted">Выберите один или несколько файлов .fb2 на вашем компьютере для мгновенного анализа.</p>
+
+			<!-- Поле выбора файлов. Атрибут multiple позволяет выбрать много файлов через Ctrl+A -->
+			<div class="mb-3">
+				<InputFile OnChange="LoadAndParseFiles" multiple accept=".fb2" class="form-control" />
+			</div>
+
+			<!-- Индикатор загрузки -->
+			@if (isProcessing)
+			{
+				<div class="d-flex align-items-center my-3 text-primary">
+					<div class="spinner-border me-2" role="status"></div>
+					<strong>Обработка файлов...</strong>
+				</div>
+			}
+
+			<!-- Вывод результатов -->
+			@if (parsedBooksSummary.Any())
+			{
+				<h5 class="mt-4">Результаты сканирования:</h5>
+				<div class="list-group">
+					@foreach (var summary in parsedBooksSummary)
+					{
+						<div class="list-group-item list-group-item-action">
+							<div class="d-flex w-100 justify-content-between">
+								<h6 class="mb-1 text-dark">@summary.FileName</h6>
+								<small class="text-muted">@summary.FileSizeText</small>
+							</div>
+							<p class="mb-1 text-secondary @(summary.IsError ? "text-danger fw-bold" : "")">
+								@summary.StatusMessage
+							</p>
+						</div>
+					}
+				</div>
+			}
+		</div>
+	</div>
+</div>
+
+@code {
+	private bool isProcessing = false;
+	private List<BookParseResult> parsedBooksSummary = new();
+
+	// Ограничение на размер одной книги (например, 20 МБ)
+	private readonly long maxFileSize = 1024 * 1024 * 20;
+
+	private async Task LoadAndParseFiles(InputFileChangeEventArgs e)
+	{
+		isProcessing = true;
+		parsedBooksSummary.Clear();
+		StateHasChanged(); // Обновляем UI, чтобы показать спиннер загрузки
+
+		foreach (var file in e.GetMultipleFiles())
+		{
+			var result = new BookParseResult
+			{
+				FileName = file.Name,
+				FileSizeText = $"{Math.Round(file.Size / 1024.0 / 1024.0, 2)} МБ"
+			};
+
+			try
+			{
+				// 1. Открываем поток чтения файла прямо из ОС в браузер
+				using var stream = file.OpenReadStream(maxFileSize);
+
+				// 2. Копируем в MemoryStream для быстрого синхронного доступа к байтам
+				using var memoryStream = new MemoryStream();
+				await stream.CopyToAsync(memoryStream);
+				memoryStream.Position = 0;
+
+				// -----------------------------------------------------------------
+				// ШАГ ДЛЯ ИНТЕГРАЦИИ: Тут вы подключаете вашу библиотеку парсинга
+				// -----------------------------------------------------------------
+				// Если у вас подключена библиотека Fb2Library в этом проекте, код будет таким:
+				//
+				// var fb2Document = new Fb2Document();
+				// fb2Document.Load(memoryStream);
+				// result.StatusMessage = $"Автор: {fb2Document.BookInformation.Author}, Название: {fb2Document.BookInformation.Title}";
+				// -----------------------------------------------------------------
+
+				// Временная заглушка для проверки работоспособности потока:
+				result.StatusMessage = "Файл успешно прочитан в память WebAssembly и готов к парсингу!";
+				result.IsError = false;
+			}
+			catch (Exception ex)
+			{
+				result.StatusMessage = $"Ошибка чтения: {ex.Message}";
+				result.IsError = true;
+			}
+
+			parsedBooksSummary.Add(result);
+		}
+
+		isProcessing = false;
+	}
+
+	// Вспомогательный класс для отображения результатов на UI
+	private class BookParseResult
+	{
+		public string FileName { get; set; } = string.Empty;
+		public string FileSizeText { get; set; } = string.Empty;
+		public string StatusMessage { get; set; } = string.Empty;
+		public bool IsError { get; set; }
+	}
+}
