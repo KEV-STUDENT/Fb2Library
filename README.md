@@ -41,10 +41,12 @@ Fb2Library/
 ├── src/
 │   ├── Fb2Library.Domain/              # Ядро: сущности, интерфейсы
 │   ├── Fb2Library.Application/         # Бизнес-логика: Use Cases, DTO
-│   ├── Fb2Library.Infrastructure/      # Реализации: БД, файлы, парсер
-│   ├── Fb2Library.Persistence/
+│   ├── Fb2Library.Infrastructure/      # ИНФРАСТРУКТУРА ПАРСИНГА: Только Fb2.Document и System.IO.Compression
+│   ├── Fb2Library.Persistence/         # ИНФРАСТРУКТУРА СЕРВЕРА: EF Core, БД, миграции
 │   └── Presentation/
-│       ├── Fb2Library.Blazor/          # Веб-интерфейс (Blazor)
+│       ├── Fb2Library.Api/             # API бэкенд (подключает Persistence и Parsing)
+│       ├── Fb2Library.Blazor/          # Blazor Host (подключает Blazor.Client)
+│       ├── Fb2Library.Blazor.Client/   # Веб-интерфейс (Blazor - WASM)
 │       └── Fb2Library.Wpf/             # Десктоп-интерфейс (WPF) — позже
 |
 ├── tests/                              # Тесты
