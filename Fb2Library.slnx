@@ -7,7 +7,6 @@
   </Folder>
   <Folder Name="/src/Presentation/">
     <Project Path="src/Presentation/Fb2Library.Api/Fb2Library.Api.csproj" Id="926dc1d9-b813-4561-9954-fb9129cf52a9" />
-    <Project Path="src/Presentation/Fb2Library.Blazor/Fb2Library.Blazor.csproj" />
     <Project Path="src/Presentation/Fb2Library.Wpf/Fb2Library.Wpf.csproj" />
   </Folder>
   <Folder Name="/tests/">

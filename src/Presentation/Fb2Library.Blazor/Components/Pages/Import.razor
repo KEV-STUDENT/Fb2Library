@@ -1,0 +1,110 @@
+@* Fb2Library.Blazor/Pages/Import.razor *@
+@page "/import"
+@inject HttpClient Http
+
+<h3>Import FB2 Books</h3>
+
+<div class="card">
+    <div class="card-body">
+        <h5>Select FB2 Files</h5>
+        
+        <InputFile OnChange="@HandleFileSelected" 
+                   multiple 
+                   accept=".fb2" />
+        
+        @if (selectedFiles.Count > 0)
+        {
+            <div class="mt-3">
+                <h6>Selected Files:</h6>
+                <ul>
+                    @foreach (var file in selectedFiles)
+                    {
+                        <li>@file.Name (@FormatFileSize(file.Size))</li>
+                    }
+                </ul>
+                
+                <button @onclick="UploadFiles" 
+                        class="btn btn-primary"
+                        disabled="@isUploading">
+                    @(isUploading ? "Uploading..." : "Upload and Import")
+                </button>
+            </div>
+        }
+    </div>
+</div>
+
+@if (isUploading)
+{
+    <div class="progress mt-3">
+        <div class="progress-bar" style="width: @progress%">
+            @progress%
+        </div>
+    </div>
+}
+
+@if (!string.IsNullOrEmpty(message))
+{
+    <div class="alert alert-info mt-3">@message</div>
+}
+
+@code {
+    private List<IBrowserFile> selectedFiles = new();
+    private bool isUploading;
+    private int progress;
+    private string message = string.Empty;
+
+    private void HandleFileSelected(InputFileChangeEventArgs e)
+    {
+        selectedFiles = e.GetMultipleFiles().ToList();
+        message = $"Selected {selectedFiles.Count} file(s)";
+    }
+
+    private async Task UploadFiles()
+    {
+        isUploading = true;
+        var totalFiles = selectedFiles.Count;
+        
+        for (int i = 0; i < totalFiles; i++)
+        {
+            var file = selectedFiles[i];
+            
+            try
+            {
+                // Отправляем файл на API
+                using var content = new MultipartFormDataContent();
+                using var stream = file.OpenReadStream(maxAllowedSize: 100_000_000);
+                using var streamContent = new StreamContent(stream);
+                
+                content.Add(streamContent, "file", file.Name);
+                
+                var response = await Http.PostAsync("import/file", content);
+                
+                if (response.IsSuccessStatusCode)
+                {
+                    message = $"Successfully imported: {file.Name}";
+                }
+                else
+                {
+                    message = $"Error importing: {file.Name}";
+                }
+                
+                progress = (int)((i + 1) * 100.0 / totalFiles);
+                StateHasChanged();
+            }
+            catch (Exception ex)
+            {
+                message = $"Error: {ex.Message}";
+            }
+        }
+        
+        isUploading = false;
+        selectedFiles.Clear();
+    }
+
+    private string FormatFileSize(long bytes)
+    {
+        if (bytes < 1024) return $"{bytes} B";
+        if (bytes < 1024 * 1024) return $"{bytes / 1024.0:F1} KB";
+        return $"{bytes / (1024.0 * 1024.0):F1} MB";
+    }
+}

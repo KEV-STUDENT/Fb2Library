@@ -10,6 +10,7 @@
     <!-- Версии берутся из Directory.Packages.props -->
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
     <PackageReference Include="Microsoft.OpenApi" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
   
   <ItemGroup>    
