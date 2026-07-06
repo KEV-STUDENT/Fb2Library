@@ -1,4 +1,5 @@
 using Fb2Library.Domain.Shared;
+using Fb2Library.Domain.Shared.Interfaces;
 
 namespace Fb2Library.Domain.Genres
 {

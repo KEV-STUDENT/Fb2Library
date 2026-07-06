@@ -1,3 +1,5 @@
+using Fb2Library.Domain.Shared.Interfaces;
+using Fb2Library.Infrastructure.Parsing;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -20,7 +22,8 @@ namespace Fb2Library.Infrastructure
             //services.AddScoped<IAuthorRepository, AuthorRepository>();
 
             // Парсеры
-            //services.AddScoped<IFb2ParserService, Fb2ParserService>();
+            services.AddScoped<IDocumentParser, Fb2Parser>();
+            services.AddScoped<IDocumentParserFactory, DocumentParserFactory>();
 
             // Unit of Work
             //services.AddScoped<IUnitOfWork, UnitOfWork>();

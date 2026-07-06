@@ -7,7 +7,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Fb2Library.Domain\Fb2Library.Domain.csproj" />
-    <ProjectReference Include="..\Fb2Library.Application\Fb2Library.Application.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

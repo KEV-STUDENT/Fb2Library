@@ -1,4 +1,4 @@
-namespace Fb2Library.Domain.Shared
+namespace Fb2Library.Domain.Shared.Interfaces
 {
     public interface IIdentityFabric<T1, T2> where T1 : Identity<T2>
     {
