@@ -3,6 +3,10 @@
 @using System.IO
 @inject HttpClient Http
 
+@using Fb2Library.Domain.Shared.Interfaces;
+@inject IDocumentParserFactory ParserFactory
+
+
 <div class="container mt-5">
 	<div class="card shadow-sm">
 		<div class="card-header bg-primary text-white">
@@ -71,27 +75,33 @@
 
 			try
 			{
-				// 1. Открываем поток чтения файла прямо из ОС в браузер
-				using var stream = file.OpenReadStream(maxFileSize);
+				// Get parser throw DI
+				var parser = ParserFactory.GetDocumentParser(file.Name);
+				if (parser.CanParse(file.Name))
+				{
+					// 1. Открываем поток чтения файла прямо из ОС в браузер
+					using var stream = file.OpenReadStream(maxFileSize);
 
-				// 2. Копируем в MemoryStream для быстрого синхронного доступа к байтам
-				using var memoryStream = new MemoryStream();
-				await stream.CopyToAsync(memoryStream);
-				memoryStream.Position = 0;
+					// 2. Копируем в MemoryStream для быстрого синхронного доступа к байтам
+					using var memoryStream = new MemoryStream();
+					await stream.CopyToAsync(memoryStream);
+					memoryStream.Position = 0;
 
-				// -----------------------------------------------------------------
-				// ШАГ ДЛЯ ИНТЕГРАЦИИ: Тут вы подключаете вашу библиотеку парсинга
-				// -----------------------------------------------------------------
-				// Если у вас подключена библиотека Fb2Library в этом проекте, код будет таким:
-				//
-				// var fb2Document = new Fb2Document();
-				// fb2Document.Load(memoryStream);
-				// result.StatusMessage = $"Автор: {fb2Document.BookInformation.Author}, Название: {fb2Document.BookInformation.Title}";
-				// -----------------------------------------------------------------
+					await parser.ParseAsync(memoryStream, file.Name).Result();
+					// -----------------------------------------------------------------
+					// ШАГ ДЛЯ ИНТЕГРАЦИИ: Тут вы подключаете вашу библиотеку парсинга
+					// -----------------------------------------------------------------
+					// Если у вас подключена библиотека Fb2Library в этом проекте, код будет таким:
+					//
+					// var fb2Document = new Fb2Document();
+					// fb2Document.Load(memoryStream);
+					// result.StatusMessage = $"Автор: {fb2Document.BookInformation.Author}, Название: {fb2Document.BookInformation.Title}";
+					// -----------------------------------------------------------------
 
-				// Временная заглушка для проверки работоспособности потока:
-				result.StatusMessage = "Файл успешно прочитан в память WebAssembly и готов к парсингу!";
-				result.IsError = false;
+					// Временная заглушка для проверки работоспособности потока:
+					result.StatusMessage = "Файл успешно прочитан в память WebAssembly и готов к парсингу!";
+					result.IsError = false;
+				}
 			}
 			catch (Exception ex)
 			{

@@ -7,9 +7,7 @@ namespace Fb2Library.Infrastructure
 {
     public static class DependencyInjection
     {
-        public static IServiceCollection AddInfrastructure(
-            this IServiceCollection services,
-            IConfiguration configuration)
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
             // База данных
             //services.AddDbContext<AppDbContext>(options =>
@@ -27,6 +25,14 @@ namespace Fb2Library.Infrastructure
 
             // Unit of Work
             //services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+            return services;
+        }
+
+        public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+        {
+            services.AddInfrastructure();
+            services.Configure<ParserOptions>(configuration.GetSection("Parsing"));
 
             return services;
         }
