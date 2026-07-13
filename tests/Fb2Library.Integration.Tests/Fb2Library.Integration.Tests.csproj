@@ -8,9 +8,15 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoFixture">
+      <VersionOverride>4.18.1</VersionOverride>
+    </PackageReference>
     <PackageReference Include="coverlet.collector">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="FluentAssertions">
+      <VersionOverride>8.10.0</VersionOverride>
     </PackageReference>
     <PackageReference Include="FluentValidation">
       <VersionOverride>12.1.1</VersionOverride>
@@ -24,11 +30,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Using Include="Xunit" />
+    <ProjectReference Include="..\..\src\Fb2Library.Domain\Fb2Library.Domain.csproj" />
+    <ProjectReference Include="..\..\src\Fb2Library.Infrastructure\Fb2Library.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Fb2Library.Persistence\Fb2Library.Persistence.csproj" />
+    <Using Include="Xunit" />
   </ItemGroup>
 
   <ItemGroup>

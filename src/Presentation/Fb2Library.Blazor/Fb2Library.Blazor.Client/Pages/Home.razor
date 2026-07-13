@@ -87,7 +87,8 @@
 					await stream.CopyToAsync(memoryStream);
 					memoryStream.Position = 0;
 
-					await parser.ParseAsync(memoryStream, file.Name).Result();
+					//await parser.ParseAsync(memoryStream, file.Name).Result();
+
 					// -----------------------------------------------------------------
 					// ШАГ ДЛЯ ИНТЕГРАЦИИ: Тут вы подключаете вашу библиотеку парсинга
 					// -----------------------------------------------------------------

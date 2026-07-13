@@ -4,6 +4,5 @@ namespace Fb2Library.Domain.Shared.Enums
     {
         None = 0,
         FB2 = 1,
-        ZIP = 2,
     }
 }

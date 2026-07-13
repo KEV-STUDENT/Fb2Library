@@ -9,22 +9,9 @@ namespace Fb2Library.Infrastructure
     {
         public static IServiceCollection AddInfrastructure(this IServiceCollection services)
         {
-            // База данных
-            //services.AddDbContext<AppDbContext>(options =>
-            //    options.UseSqlServer(
-            //        configuration.GetConnectionString("DefaultConnection")));
-
-            // Репозитории (Domain интерфейсы → Infrastructure реализации)
-            //services.AddScoped<IBookRepository, BookRepository>();
-            //services.AddScoped<IGenreRepository, GenreRepository>();
-            //services.AddScoped<IAuthorRepository, AuthorRepository>();
-
             // Парсеры
             services.AddScoped<IDocumentParser, Fb2Parser>();
             services.AddScoped<IDocumentParserFactory, DocumentParserFactory>();
-
-            // Unit of Work
-            //services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
         }
