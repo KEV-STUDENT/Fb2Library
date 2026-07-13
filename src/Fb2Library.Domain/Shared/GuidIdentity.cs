@@ -44,6 +44,9 @@ namespace Fb2Library.Domain.Shared
             throw new ArgumentException($"Object must be of type {nameof(GuidIdentity)}");
         }
 
+        public static bool IsNullEmpty(GuidIdentity? other) => other == null || other.Value == Guid.Empty;
+
+
         //// Операторы сравнения
         //public static bool operator <(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) < 0;
         //public static bool operator >(GuidIdentity left, GuidIdentity right) => left.CompareTo(right) > 0;
