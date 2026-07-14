@@ -3,9 +3,14 @@
 @using System.IO
 @inject HttpClient Http
 
-@using Fb2Library.Domain.Shared.Interfaces;
-@inject IDocumentParserFactory ParserFactory
+@*using Fb2Library.Domain.Shared.Interfaces; *@
+@using MediatR;
+@inject IMediator Mediator;
 
+@*inject IDocumentParserFactory ParserFactory; *@
+@using Fb2Library.Application.Services;
+@using Fb2Library.Application.Interfaces;
+@inject IDocumentService DocumentService;
 
 <div class="container mt-5">
 	<div class="card shadow-sm">
@@ -75,19 +80,28 @@
 
 			try
 			{
+
 				// Get parser throw DI
-				var parser = ParserFactory.GetDocumentParser(file.Name);
-				if (parser.CanParse(file.Name))
-				{
-					// 1. Открываем поток чтения файла прямо из ОС в браузер
-					using var stream = file.OpenReadStream(maxFileSize);
+				//var parser = ParserFactory.GetDocumentParser(file.Name);
+				//if (parser.CanParse(file.Name))
+				//{
+				// 1. Открываем поток чтения файла прямо из ОС в браузер
+				using var stream = file.OpenReadStream(maxFileSize);
 
-					// 2. Копируем в MemoryStream для быстрого синхронного доступа к байтам
-					using var memoryStream = new MemoryStream();
-					await stream.CopyToAsync(memoryStream);
-					memoryStream.Position = 0;
+				// 2. Копируем в MemoryStream для быстрого синхронного доступа к байтам
+				using var memoryStream = new MemoryStream();
+				await stream.CopyToAsync(memoryStream);
+				memoryStream.Position = 0;
 
-					//await parser.ParseAsync(memoryStream, file.Name).Result();
+				var command = new ParseDocumentCommand
+					{
+						Stream = stream,
+						FileName = file.Name
+					};
+				await Mediator.Send(command);
+
+				var info = await DocumentService.GetDocumentInfoAsync(memoryStream, file.Name);
+				//await parser.ParseAsync(memoryStream, file.Name).Result();
 
 					// -----------------------------------------------------------------
 					// ШАГ ДЛЯ ИНТЕГРАЦИИ: Тут вы подключаете вашу библиотеку парсинга
@@ -102,7 +116,7 @@
 					// Временная заглушка для проверки работоспособности потока:
 					result.StatusMessage = "Файл успешно прочитан в память WebAssembly и готов к парсингу!";
 					result.IsError = false;
-				}
+				//}
 			}
 			catch (Exception ex)
 			{

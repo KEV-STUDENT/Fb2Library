@@ -15,9 +15,11 @@
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" />
     <PackageReference Include="Microsoft.Extensions.Options" />
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
+    <PackageReference Include="MediatR" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Fb2Library.Application\Fb2Library.Application.csproj" />
     <ProjectReference Include="..\..\..\Fb2Library.Infrastructure\Fb2Library.Infrastructure.csproj" />
   </ItemGroup>
 
