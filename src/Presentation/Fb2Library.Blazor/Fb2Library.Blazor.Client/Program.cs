@@ -10,9 +10,10 @@ builder.Services.AddScoped(sp => new HttpClient
     BaseAddress = new Uri("https://localhost:7029/") // URL вашего Fb2Library.Api без подпапок!
 });
 
-// Регистрируем Application Layor
-builder.Services.AddApplication();
 // Регистрируем инфраструктуру
 builder.Services.AddInfrastructure();  // ← Один метод вместо нескольких строк
+// Регистрируем Application Layor
+builder.Services.AddApplication();
+
 
 await builder.Build().RunAsync().ConfigureAwait(false);

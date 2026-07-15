@@ -1,13 +1,10 @@
-// Fb2Library.Application/DependencyInjection.cs
-//using Fb2Library.Application.Handlers;
-//using Fb2Library.Application.Services;
 using System.Reflection;
-using FluentValidation;
-using MediatR;
-using Microsoft.Extensions.DependencyInjection;
 using Fb2Library.Application.Behaviors;
 using Fb2Library.Application.Interfaces;
 using Fb2Library.Application.Services;
+using FluentValidation;
+using MediatR;
+using Microsoft.Extensions.DependencyInjection;
 
 
 namespace Fb2Library.Application

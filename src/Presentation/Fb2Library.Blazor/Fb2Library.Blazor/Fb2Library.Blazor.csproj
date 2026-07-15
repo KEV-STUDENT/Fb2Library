@@ -8,8 +8,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Fb2Library.Application\Fb2Library.Application.csproj" />
+    <ProjectReference Include="..\..\..\Fb2Library.Infrastructure\Fb2Library.Infrastructure.csproj" />
     <ProjectReference Include="..\Fb2Library.Blazor.Client\Fb2Library.Blazor.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"/>
   </ItemGroup>
 
 </Project>
