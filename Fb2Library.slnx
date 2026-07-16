@@ -6,7 +6,6 @@
     <Project Path="src/Fb2Library.Persistence/Fb2Library.Persistence.csproj" />
   </Folder>
   <Folder Name="/src/Presentation/">
-    <Project Path="src/Presentation/Fb2Library.Api/Fb2Library.Api.csproj" Id="926dc1d9-b813-4561-9954-fb9129cf52a9" />
     <Project Path="src/Presentation/Fb2Library.Blazor/Fb2Library.Blazor.Client/Fb2Library.Blazor.Client.csproj" Id="f73a5239-4b73-406d-ba1c-9461ae127a6e" />
     <Project Path="src/Presentation/Fb2Library.Blazor/Fb2Library.Blazor/Fb2Library.Blazor.csproj" Id="14cb36eb-18c9-44f2-8065-24110fac5474" />
     <Project Path="src/Presentation/Fb2Library.Wpf/Fb2Library.Wpf.csproj" />

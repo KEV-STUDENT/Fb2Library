@@ -93,12 +93,12 @@
 				await stream.CopyToAsync(memoryStream);
 				memoryStream.Position = 0;
 
-				var command = new ParseDocumentCommand
-					{
-						Stream = stream,
-						FileName = file.Name
-					};
-				await Mediator.Send(command);
+				// var command = new ParseDocumentCommand
+				// 	{
+				// 		Stream = stream,
+				// 		FileName = file.Name
+				// 	};
+				// await Mediator.Send(command);
 
 				var info = await DocumentService.GetDocumentInfoAsync(memoryStream, file.Name);
 				//await parser.ParseAsync(memoryStream, file.Name).Result();

@@ -1,15 +1,26 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net10.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <BlazorDisableThrowNavigationException>true</BlazorDisableThrowNavigationException>
+    <BrowserLinkEnabled>false</BrowserLinkEnabled>
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\Fb2Library.Application\Fb2Library.Application.csproj" />
+    <ProjectReference Include="..\..\..\Fb2Library.Domain\Fb2Library.Domain.csproj" />
+    <ProjectReference Include="..\..\..\Fb2Library.Infrastructure\Fb2Library.Infrastructure.csproj" />
     <ProjectReference Include="..\Fb2Library.Blazor.Client\Fb2Library.Blazor.Client.csproj" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server"/>
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" />
+    <!-- Версии берутся из Directory.Packages.props -->
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" />
+    <PackageReference Include="Microsoft.Extensions.Http.Polly">
+      <VersionOverride>10.0.10</VersionOverride>
+    </PackageReference>
+    <PackageReference Include="Microsoft.OpenApi" />
+    <PackageReference Include="Swashbuckle.AspNetCore" />
   </ItemGroup>
-
+  
 </Project>
