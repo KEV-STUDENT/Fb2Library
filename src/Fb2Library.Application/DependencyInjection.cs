@@ -21,6 +21,8 @@ namespace Fb2Library.Application
                 cfg.RegisterServicesFromAssembly(typeof(DependencyInjection).Assembly));
 
             // FluentValidation.DependencyInjectionExtensions даёт:
+            // Находит все классы, реализующие IValidator<T>
+            // Автоматически регистрирует их в DI-контейнере с правильными временами жизни:
             services.AddValidatorsFromAssembly(Assembly.GetExecutingAssembly());
 
             // 1. Error Handling - самый внешний, ловит все ошибки
