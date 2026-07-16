@@ -44,8 +44,7 @@ Fb2Library/
 │   ├── Fb2Library.Infrastructure/      # ИНФРАСТРУКТУРА ПАРСИНГА: Только Fb2.Document и System.IO.Compression
 │   ├── Fb2Library.Persistence/         # ИНФРАСТРУКТУРА СЕРВЕРА: EF Core, БД, миграции
 │   └── Presentation/
-│       ├── Fb2Library.Api/             # API бэкенд (подключает Persistence и Parsing)
-│       ├── Fb2Library.Blazor/          # Blazor Host (подключает Blazor.Client)
+│       ├── Fb2Library.Blazor/          # Blazor Host (подключает Blazor.Client + BackEnd)
 │       ├── Fb2Library.Blazor.Client/   # Веб-интерфейс (Blazor - WASM)
 │       └── Fb2Library.Wpf/             # Десктоп-интерфейс (WPF) — позже
 |
